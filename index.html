@@ -149,9 +149,9 @@
 
             <div class="p-4 pb-0">
                 <h3 class="mb-3">REKO-ring Ankeborg</h3>
-                <div style="font-size: 0.75rem;"><i class="bi bi-calendar me-2"></i> Onsdag 24 April, 2024</div>
-                <div style="font-size: 0.75rem;"><i class="bi bi-geo-alt me-2"></i> Gräsandsvägen 11</div>
-                <div style="font-size: 0.75rem;"><i class="bi bi-clock me-2"></i> 18.00-21.00</div>
+                <div style="font-size: 0.875rem;"><i class="bi bi-calendar me-2"></i> Onsdag 24 April, 2024</div>
+                <div style="font-size: 0.875rem;"><i class="bi bi-geo-alt me-2"></i> Gräsandsvägen 11</div>
+                <div style="font-size: 0.875rem;"><i class="bi bi-clock me-2"></i> 18.00-21.00</div>
             </div>
         </header>
 
@@ -179,17 +179,16 @@
                     <a href="" style="font-size: 0.875rem;text-decoration:none;line-height: 1;">Se alla <i style="font-size: 0.75rem" class="bi bi-chevron-right"></i></a>
                 </div>
                 <div class="w-100">
-                <div :id="'glide-' + categoryName" class="glide mb-4">
-                    <div class="glide__track" data-glide-el="track">
-                    <ul class="glide__slides">
-                        <li class="glide__slide" v-for="(item, index) in category" :key="index">
-                            <img @click="openFormModal" style="width:100%" :src="item.image" :alt="item.alt">
-                        </li>
-                    </ul>
+                    <div :id="'glide-' + categoryName" class="glide mb-4">
+                        <div class="glide__track" data-glide-el="track">
+                            <ul class="glide__slides">
+                                <li class="glide__slide" v-for="(item, index) in category" :key="index">
+                                    <img @click="openFormModal" style="width:100%" :src="item.image" :alt="item.alt">
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="overlay"></div>
                     </div>
-                    <div class="overlay"></div>
-
-                </div>
                 </div>
             </div>
         </div>
