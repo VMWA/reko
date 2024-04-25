@@ -155,9 +155,9 @@
 
             <div class="p-4 pb-0">
                 <h3 class="mb-2">REKO-ring Ankeborg</h3>
-                <div style="font-size: 0.875rem;color:#656f79"><i class="bi bi-calendar me-2"></i>Onsdag 24 April, 2024</div>
-                <div style="font-size: 0.875rem;color:#656f79"><i class="bi bi-geo-alt me-2"></i>Gräsandsvägen 11</div>
-                <div style="font-size: 0.875rem;color:#656f79"><i class="bi bi-clock me-2"></i>18.00 - 21.00</div>
+                <div class="mb-1" style="font-size: 0.875rem;color:#656f79"><i class="bi bi-calendar me-2"></i>Onsdag 24 April, 2024</div>
+                <div class="mb-1" style="font-size: 0.875rem;color:#656f79"><i style="color:#008117" class="bi bi-geo-alt-fill me-2"></i>Gräsandsvägen 11</div>
+                <div class="mb-1" style="font-size: 0.875rem;color:#656f79"><i class="bi bi-clock me-2"></i>18.00 - 21.00</div>
             </div>
         </header>
 
@@ -182,7 +182,7 @@
             <div v-for="(category, categoryName) in items" :key="categoryName" class="category">
                 <div class="d-flex justify-content-between align-items-end mb-2">
                     <h6 class="mb-0">{{ categoryName }}</h6>
-                    <a href="" style="color:rgb(101, 111, 121);font-size: 0.875rem;text-decoration:none;line-height: 1;">Se alla <i style="font-size: 0.75rem" class="bi bi-chevron-right"></i></a>
+                    <a href="" style="color:#008117;font-size: 0.875rem;text-decoration:none;line-height: 1;">Visa alla <i style="font-size: 0.75rem" class="bi bi-chevron-right"></i></a>
                 </div>
                 <div class="w-100">
                     <div :id="'glide-' + categoryName" class="glide mb-4">
