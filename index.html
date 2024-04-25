@@ -88,6 +88,11 @@
             bottom: -100%; /* Slide down to hide the modal */
         }
 
+        .modal-content {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
         .glide__slides {
             position: relative; /* Ensure the overlay covers the slides */
         }
@@ -187,11 +192,10 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="addArticleModalLabel">Lägg till ny artikel</h5>
+                                <h5 class="modal-title" id="addArticleModalLabel">Produktinformation</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body p-4">
-                                <h2>Produktinformation</h2>
                                 <!-- <form>
                                     <div class="mb-3">
                                         <label for="articleTitle" class="form-label">Rubrik</label>
