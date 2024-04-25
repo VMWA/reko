@@ -13,9 +13,30 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
 
     <style>
+
+        header {
+            background-color: #696969;
+            color: white;
+        }
+
+        .breadcrumb {
+            color: white;
+        }
+
+        .breadcrumb .breadcrumb-item a {
+            color: white !important; /* Set breadcrumb link text color to white */
+            text-decoration: none;
+            font-size: 0.875rem;
+        }
+
+        .breadcrumb .breadcrumb-item.active {
+            color: white !important; /* Set active breadcrumb text color to white */
+        }
+
         .product-area {
             min-height: 100vh; /* Minimum height to fill the screen */
         }
+
         .bi-facebook {
             font-size: 2rem;
             color: #1877f2; /* Facebook blue */
@@ -123,11 +144,14 @@
             </div>
         </div> -->
 
-        <header class="bg-light shadow-sm p-4">
-            <nav style="font-size: 0.875rem;" class="mb-4" aria-label="breadcrumb">
+        <header class="shadow-sm p-4">
+            <nav class="mb-4" aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Alla</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Ankeborg</li>
+                    <li class="breadcrumb-item">
+                        <a href="#">
+                            <i style="font-size: 0.75rem" class="bi bi-chevron-left"></i> Tillbaka
+                        </a>
+                    </li>
                 </ol>
             </nav>
 
@@ -139,15 +163,22 @@
             </div>
         </header>
 
-
-        <!-- Product cards -->
-        
-
         <!-- <div>
             <button class="btn btn-primary mt-3" @click="openFormModal"><i class="bi bi-plus-lg"></i> Lägg till</button>   
         </div> -->
 
         <div class="p-3">
+            <form class="mb-4">
+                <form>
+                    <div class="input-group">
+                        <!-- <div class="input-group-prepend">
+                            <button class="btn btn-outline-secondary" type="button"><i class="bi bi-search"></i></button>
+                        </div> -->
+                        <input type="text" class="form-control" placeholder="Sök">
+                    </div>
+                </form>
+            </form>
+
             <h4 class="mt-3 mb-3">Veckans varor</h4>
         
             <div v-for="(category, categoryName) in items" :key="categoryName" class="category">
@@ -286,6 +317,27 @@
                     { image: 'https://via.placeholder.com/150?text=Mejeriprodukter+4', alt: 'Mejeriprodukter Image 4' },
                     { image: 'https://via.placeholder.com/150?text=Mejeriprodukter+5', alt: 'Mejeriprodukter Image 5' }
                 ],
+                'Kött': [
+                    { image: 'https://via.placeholder.com/150?text=Frukt+1', alt: 'Frukt Image 1' },
+                    { image: 'https://via.placeholder.com/150?text=Frukt+2', alt: 'Frukt Image 2' },
+                    { image: 'https://via.placeholder.com/150?text=Frukt+3', alt: 'Frukt Image 3' },
+                    { image: 'https://via.placeholder.com/150?text=Frukt+4', alt: 'Frukt Image 4' },
+                    { image: 'https://via.placeholder.com/150?text=Frukt+5', alt: 'Frukt Image 5' }
+                ],
+                'Drycker': [
+                    { image: 'https://via.placeholder.com/150?text=Gr%C3%B6nsaker+1', alt: 'Grönsaker Image 1' },
+                    { image: 'https://via.placeholder.com/150?text=Gr%C3%B6nsaker+2', alt: 'Grönsaker Image 2' },
+                    { image: 'https://via.placeholder.com/150?text=Gr%C3%B6nsaker+3', alt: 'Grönsaker Image 3' },
+                    { image: 'https://via.placeholder.com/150?text=Gr%C3%B6nsaker+4', alt: 'Grönsaker Image 4' },
+                    { image: 'https://via.placeholder.com/150?text=Gr%C3%B6nsaker+5', alt: 'Grönsaker Image 5' }
+                ],
+                'Godis': [
+                    { image: 'https://via.placeholder.com/150?text=Mejeriprodukter+1', alt: 'Mejeriprodukter Image 1' },
+                    { image: 'https://via.placeholder.com/150?text=Mejeriprodukter+2', alt: 'Mejeriprodukter Image 2' },
+                    { image: 'https://via.placeholder.com/150?text=Mejeriprodukter+3', alt: 'Mejeriprodukter Image 3' },
+                    { image: 'https://via.placeholder.com/150?text=Mejeriprodukter+4', alt: 'Mejeriprodukter Image 4' },
+                    { image: 'https://via.placeholder.com/150?text=Mejeriprodukter+5', alt: 'Mejeriprodukter Image 5' }
+                ],
                 // Add items for other categories
             }
         },
@@ -293,6 +345,9 @@
             this.initializeGlide('Frukt');
             this.initializeGlide('Grönsaker');
             this.initializeGlide('Mejeriprodukter');
+            this.initializeGlide('Kött');
+            this.initializeGlide('Drycker');
+            this.initializeGlide('Godis');
         },
         computed: {
             uniqueCategories() {
