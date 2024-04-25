@@ -109,131 +109,135 @@
 
 </head>
 <div id="app" class="product-area">
-    <div class="container-auto p-3">
+    <div class="container-auto">
         
-        <div class="row">
-            <!-- Category filters -->
-            <!-- <div class="col-lg-3 mb-4">
-                <div class="mb-4">
-                    <h4 class="mb-4">Kategorier:</h4>
-                    <div class="form-check" v-for="category in uniqueCategories" :key="category">
-                        <input class="form-check-input" type="checkbox" :value="category" v-model="selectedCategories">
-                        <label class="form-check-label">{{ category }}</label>
-                    </div>
+      
+        <!-- Category filters -->
+        <!-- <div class="col-lg-3 mb-4">
+            <div class="mb-4">
+                <h4 class="mb-4">Kategorier:</h4>
+                <div class="form-check" v-for="category in uniqueCategories" :key="category">
+                    <input class="form-check-input" type="checkbox" :value="category" v-model="selectedCategories">
+                    <label class="form-check-label">{{ category }}</label>
                 </div>
-            </div> -->
+            </div>
+        </div> -->
 
-            <!-- Product cards -->
-            <div class="col-lg-9">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                      <li class="breadcrumb-item"><a href="#">Alla</a></li>
-                      <li class="breadcrumb-item active" aria-current="page">Ankeborg</li>
-                    </ol>
-                </nav>
+        <header class="bg-light p-3">
+            <nav class="mb-4" aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Alla</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Ankeborg</li>
+                </ol>
+            </nav>
 
-                <div class="mt-4 mb-4">
-                    <h1 class="mb-3">REKO-ring Ankeborg</h1>
-                    <div style="font-size: 0.875rem;"><i class="bi bi-calendar me-2"></i> Onsdag 24 April, 2024</div>
-                    <div style="font-size: 0.875rem;"><i class="bi bi-geo-alt me-2"></i> Gräsandsvägen 11</div>
-                    <div style="font-size: 0.875rem;"><i class="bi bi-clock me-2"></i> 18.00-21.00</div>
+            <div>
+                <h2 class="mb-2">REKO-ring Ankeborg</h2>
+                <div style="font-size: 0.75rem;"><i class="bi bi-calendar me-2"></i> Onsdag 24 April, 2024</div>
+                <div style="font-size: 0.75rem;"><i class="bi bi-geo-alt me-2"></i> Gräsandsvägen 11</div>
+                <div style="font-size: 0.75rem;"><i class="bi bi-clock me-2"></i> 18.00-21.00</div>
+            </div>
+        </header>
+
+
+        <!-- Product cards -->
+        
+
+        <!-- <div>
+            <button class="btn btn-primary mt-3" @click="openFormModal"><i class="bi bi-plus-lg"></i> Lägg till</button>   
+        </div> -->
+
+        <div class="p-3">
+            <h3 class="mb-3">Veckans varor</h3>
+        
+            <div v-for="(category, categoryName) in items" :key="categoryName" class="category">
+                <div class="d-flex justify-content-between align-items-end mb-2">
+                    <h6 class="mb-0">{{ categoryName }}</h6>
+                    <a href="" style="font-size: 0.875rem;text-decoration:none;line-height: 1;">Se alla <i style="font-size: 0.75rem" class="bi bi-chevron-right"></i></a>
                 </div>
-
-                <!-- <div>
-                    <button class="btn btn-primary mt-3" @click="openFormModal"><i class="bi bi-plus-lg"></i> Lägg till</button>   
-                </div> -->
-                
-                <h3 class="mb-3">Veckans varor</h3>
-             
-                <div v-for="(category, categoryName) in items" :key="categoryName" class="category">
-                    <div class="d-flex justify-content-between align-items-end mb-2">
-                        <h6 class="mb-0">{{ categoryName }}</h6>
-                        <a href="" style="font-size: 0.875rem;text-decoration:none;line-height: 1;">Se alla <i style="font-size: 0.75rem" class="bi bi-chevron-right"></i></a>
+                <div class="w-100">
+                <div :id="'glide-' + categoryName" class="glide mb-4">
+                    <div class="glide__track" data-glide-el="track">
+                    <ul class="glide__slides">
+                        <li class="glide__slide" v-for="(item, index) in category" :key="index">
+                        <img @click="openFormModal" style="width:100%" :src="item.image" :alt="item.alt">
+                        </li>
+                    </ul>
                     </div>
-                    <div class="w-100">
-                      <div :id="'glide-' + categoryName" class="glide mb-4">
-                        <div class="glide__track" data-glide-el="track">
-                          <ul class="glide__slides">
-                            <li class="glide__slide" v-for="(item, index) in category" :key="index">
-                              <img @click="openFormModal" style="width:100%" :src="item.image" :alt="item.alt">
-                            </li>
-                          </ul>
-                        </div>
-                        <div class="overlay"></div>
+                    <div class="overlay"></div>
 
-                      </div>
-                    </div>
                 </div>
-             
-
-                <!-- <div>
-                    <div class="row">
-                        <div v-for="article in filteredArticles" :key="article.id" class="col-lg-4 mb-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-title">{{ article.title }}</h4>
-                                    <p class="card-text">{{ article.description }}</p>
-                                    <p class="card-text">{{ article.category }}</p>
-                                    <img :src="article.image" class="card-img-top" alt="Article Image">
-                                </div>
-                            </div>
-                        </div>
-                    </div>    
-                </div> -->
-
-                <!-- <div class="d-flex align-items-center">
-                    <button class="btn btn-lg p-0" @click="openFacebookModal">
-                        <i class="bi bi-facebook"></i>
-                    </button>
-                </div> -->
-
-                <!-- Modal for adding a new article -->
-                <div class="modal bottom-slide-modal fade" id="addArticleModal" tabindex="-1" aria-labelledby="addArticleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="addArticleModalLabel">Produktinformation</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body p-4">
-                                <!-- <form>
-                                    <div class="mb-3">
-                                        <label for="articleTitle" class="form-label">Rubrik</label>
-                                        <input type="text" class="form-control" id="articleTitle" v-model="newArticle.title">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="articleDescription" class="form-label">Beskrivning</label>
-                                        <textarea class="form-control" id="articleDescription" rows="3" v-model="newArticle.description"></textarea>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="articleCategory" class="form-label">Kategori</label>
-                                        <input type="text" class="form-control" id="articleCategory" v-model="newArticle.category">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="articleImage" class="form-label">Bild URL</label>
-                                        <input type="text" class="form-control" id="articleImage" v-model="newArticle.image">
-                                    </div>
-                                </form> -->
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-primary w-100" @click="addArticle">Reservera</button>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-
-                <footer class="footer">
-                    <nav class="menu">
-                      <ul>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">About</a></li>
-                        <li><a href="#">Services</a></li>
-                        <li><a href="#">Contact</a></li>
-                      </ul>
-                    </nav>
-                </footer>
             </div>
         </div>
+            
+            
+        <!-- <div>
+            <div class="row">
+                <div v-for="article in filteredArticles" :key="article.id" class="col-lg-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">{{ article.title }}</h4>
+                            <p class="card-text">{{ article.description }}</p>
+                            <p class="card-text">{{ article.category }}</p>
+                            <img :src="article.image" class="card-img-top" alt="Article Image">
+                        </div>
+                    </div>
+                </div>
+            </div>    
+        </div> -->
+
+        <!-- <div class="d-flex align-items-center">
+            <button class="btn btn-lg p-0" @click="openFacebookModal">
+                <i class="bi bi-facebook"></i>
+            </button>
+        </div> -->
+
+        <!-- Modal for adding a new article -->
+        <div class="modal bottom-slide-modal fade" id="addArticleModal" tabindex="-1" aria-labelledby="addArticleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addArticleModalLabel">Produktinformation</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body p-4">
+                        <!-- <form>
+                            <div class="mb-3">
+                                <label for="articleTitle" class="form-label">Rubrik</label>
+                                <input type="text" class="form-control" id="articleTitle" v-model="newArticle.title">
+                            </div>
+                            <div class="mb-3">
+                                <label for="articleDescription" class="form-label">Beskrivning</label>
+                                <textarea class="form-control" id="articleDescription" rows="3" v-model="newArticle.description"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="articleCategory" class="form-label">Kategori</label>
+                                <input type="text" class="form-control" id="articleCategory" v-model="newArticle.category">
+                            </div>
+                            <div class="mb-3">
+                                <label for="articleImage" class="form-label">Bild URL</label>
+                                <input type="text" class="form-control" id="articleImage" v-model="newArticle.image">
+                            </div>
+                        </form> -->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary w-100" @click="addArticle">Reservera</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <nav class="menu">
+                <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+        </footer>
     </div>
 </div>
 
