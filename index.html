@@ -16,6 +16,22 @@
     
     <style>
 
+        .search {
+            border: 1px solid #ededed !important;
+        }
+
+        .border-bottom {
+            border-bottom: 1px solid #ededed !important;
+        }
+
+        .border-top {
+            border-top: 1px solid #ededed !important;
+        }
+
+        .shadow-sm {
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1) !important;
+        }
+
         header nav {
             background-color: #003900;
         }
@@ -113,18 +129,67 @@
             border-bottom-right-radius: 0;
         }
         
-        .overlay {
+        .image-overlay {
             position: absolute;
-            top: 0;
-            right: 0;
             bottom: 0;
-            width: 20%; /* Adjust the width of the overlay */
-            background: linear-gradient(to right, rgba(255, 255, 255, 0), white); /* Gradient from transparent to white */
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(0, 0, 0, 1));
         }
 
         .form-control:focus {
             border-color: #00d07d;
             box-shadow: 0 0 0 0.25rem rgb(13 225 253 / 25%);
+        }
+
+
+        .image-container {
+            position: relative;
+            border-radius: 10px; /* Adjust as needed */
+            overflow: hidden;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(0, 0, 0, 1));
+        }
+
+        .text-top {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 10px;
+            color: white;
+            font-size: 16px;
+            text-align: center;
+            /* background-color: rgba(0, 0, 0, 0.5); */
+        }
+
+        .text-bottom {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            color: #212529;
+            font-size: 16px;
+            background-color: white;
+        }
+
+        .search {
+            font-size: 1.125rem;
+            padding: .5rem 1rem;
         }
 
     </style>
@@ -133,7 +198,7 @@
 <body>
 
 <div id="app" class="bg-light">
-    <div class="bg-white p-0">
+    <div class="p-0">
         
       
         <!-- Category filters -->
@@ -147,8 +212,8 @@
             </div>
         </div> -->
 
-        <header>
-            <nav class="p-3 border-bottom  shadow-sm" aria-label="breadcrumb">
+        <header class="bg-white border-bottom">
+            <nav class="p-3 border-bottom" aria-label="breadcrumb">
                 <ol class="breadcrumb m-0">
                     <li class="breadcrumb-item">
                         <a class="d-flex align-items-center" href="#">
@@ -158,11 +223,11 @@
                 </ol>
             </nav>
 
-            <div class="p-4 pb-0">
+            <div style="padding:2rem">
                 <h1 class="mb-2">Ankeborg v. 14</h1>
-                <div style="font-size: 0.875rem;color:#656f79"><i class="bi bi-calendar me-2"></i>Onsdag 24 April, 2024</div>
+                <div style="font-size: 0.875rem;color:#656f79"><i style="color:#008117"  class="bi bi-calendar me-2"></i><span style="color:#212529;font-weight:500">Onsdag 24 April, 2024</span></div>
                 <div style="font-size: 0.875rem;color:#656f79"><i style="color:#008117" class="bi bi-geo-alt-fill me-2"></i>Gräsandsvägen 11</div>
-                <div style="font-size: 0.875rem;color:#656f79"><i class="bi bi-clock me-2"></i>18.00 - 21.00</div>
+                <div style="font-size: 0.875rem;color:#656f79"><i style="color:#008117"  class="bi bi-clock me-2"></i>18.00 - 21.00</div>
             </div>
         </header>
 
@@ -170,14 +235,14 @@
             <button class="btn btn-primary mt-3" @click="openFormModal"><i class="bi bi-plus-lg"></i> Lägg till</button>   
         </div> -->
 
-        <div class="p-4">
-            <form class="mb-4">
+        <div class="p-4 pe-0">
+            <form class="mb-4 me-3">
                 <form>
                     <div class="input-group">
                         <!-- <div class="input-group-prepend">
                             <button class="btn btn-outline-secondary" type="button"><i class="bi bi-search"></i></button>
                         </div> -->
-                        <input type="text" class="form-control rounded-pill" placeholder="Sök">
+                        <input type="text" class="search form-control rounded-pill border" placeholder="Sök">
                     </div>
                 </form>
             </form>
@@ -185,14 +250,21 @@
             <h4 class="mt-3 mb-3">Veckans varor</h4>
 
             <div v-for="(category, categoryName) in items" :key="categoryName" class="category">
-                <div class="d-flex justify-content-between align-items-end">
+                <div class="d-flex justify-content-between align-items-end me-3">
                     <h6 class="mb-0">{{ categoryName }}</h6>
-                    <a href="" style="color:#008117;font-size: 0.875rem;text-decoration:none;line-height: 1;">Visa alla <i style="font-size: 0.75rem" class="bi bi-chevron-right"></i></a>
+                    <a href="" style="color:#656f79;font-size: 0.875rem;text-decoration:none;line-height: 1">Visa alla <i style="font-size: 0.75rem" class="bi bi-chevron-right"></i></a>
                 </div>
                 <div>
                   <div :id="'tiny-slider-' + categoryName" class="tiny-slider mb-4">
-                    <div v-for="(item, index) in category" :key="index">
-                        <img class="rounded-1" @click="openFormModal(item)":src="item.image" :alt="item.alt">
+                    <div v-for="(item, index) in category" :key="index" @click.stop="openFormModal(item)">
+                        <div class="image-container shadow-sm">
+                            <img :src="item.image" :alt="item.alt">
+                            <!-- <div class="image-overlay"></div> -->
+                            <div class="text-bottom p-3">
+                                <div style="font-size:0.875rem">Fruktpåse</div>
+                                <div class="ms-auto" style="font-size:1.125rem;font-weight:500">39 kr <span style="font-weight:400;font-size:0.875rem;color:#656f79">/ st</span></div>
+                            </div>
+                        </div>
                     </div>
                   </div>
                 </div>
@@ -243,9 +315,8 @@
         <footer class="footer border-top">
             <nav class="menu p-2">
                 <ul>
-                  <li><i class="bi bi-house"></i><a href="#">Home</a></li>
-                  <li><i class="bi bi-info-circle"></i><a href="#">About</a></li>
-                  <li><i class="bi bi-gear"></i><a href="#">Services</a></li>
+                  <li><i class="bi bi-flower3"></i><a href="#">Varor</a></li>
+                  <li><i class="bi bi-houses"></i><a href="#">Producenter</a></li>
                   <li @click="openFormModal"><i class="bi bi-cart2"></i><a href="#">Varukorg</a></li>
                 </ul>
               </nav>
@@ -327,13 +398,14 @@
                     tns({
                         container: sliderElement,
                         autoWidth: true,
-                        items: 2,
-                        gutter: 10,
+                        // items: 2,
+                        gutter: 15,
                         mouseDrag: true,
                         autoplay: false,
                         controls: false,
                         nav: false,
-                        preventScrollOnTouch: "auto"
+                        preventScrollOnTouch: "force",
+                        loop: false
                     })
                 } else {
                     console.warn(`Element with ID #tiny-slider-${categoryName} not found.`);
@@ -358,9 +430,11 @@
                     type: 'slider',
                     perView: 1.5, // Adjust this value to display multiple items
                     gap: 16, // Adjust the gap between items
-                }).mount();
+                }).mount()
             },
             openFormModal(item) {
+                console.log("jjd")
+
                 // Open the modal for adding a new article
                 var myModal = new bootstrap.Modal(document.getElementById('addArticleModal'))
                 myModal.show()
