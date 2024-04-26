@@ -46,7 +46,7 @@
             width: 100%;
         }
 
-        .event h1 {
+        .event h2 {
             color: maroon;
         }
 
@@ -255,7 +255,7 @@
 
             <div class="bg-white p-3">
                 <div class="p-4 event" style="position: relative;">
-                    <h1 class="mb-1 caveat-brush-regular">Karlstad City</h1>
+                    <h2 class="mb-1">Karlstad City</h2>
                     <div style="font-size: 0.875rem"><i style="color:#212529" class="bi bi-calendar me-2"></i>Onsdag 24 April, 2024</div>
                     <div style="font-size: 0.875rem"><i style="color:#212529" class="bi bi-clock me-2"></i>18.00 - 21.00</div>
                     <div style="font-size: 0.875rem"><i style="color:#212529" class="bi bi-geo-alt me-2"></i>Gräsandsvägen 11</div>
@@ -279,7 +279,7 @@
                 </form>
             </form>
 
-            <h3 class="mt-3 mb-3 caveat-brush-regular">Veckans varor</h3>
+            <h3 class="mt-3 mb-3">Veckans varor</h3>
 
             <div v-for="(category, categoryName) in items" :key="categoryName" class="category">
                 <div class="d-flex justify-content-between align-items-end me-3">
@@ -287,7 +287,7 @@
                     <a href="" style="color:#656f79;font-size: 0.875rem;text-decoration:none;line-height: 1">Visa alla <i style="font-size: 0.75rem" class="bi bi-chevron-right"></i></a>
                 </div>
                 <div>
-                  <div :id="'tiny-slider-' + categoryName" class="tiny-slider mb-4">
+                  <div :id="'tiny-slider-' + categoryName" class="tiny-slider mb-4 ps-">
                     <div v-for="(item, index) in category" :key="index" @click.stop="openFormModal(item)">
                         <div class="image-container shadow-sm">
                             <img :src="item.image" :alt="item.alt">
