@@ -281,6 +281,12 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body p-4">
+                        <div v-if="selectedItem">
+                            <img class="mb-3" :src="selectedItem.image" :alt="selectedItem.title">
+                            <h5>{{ selectedItem.title }}</h5>
+                            <div class="mb-3">{{ selectedItem.description }}</div>
+                            <h2>{{ selectedItem.price }} kr</h2>
+                        </div>
                         <!-- <form>
                             <div class="mb-3">
                                 <label for="articleTitle" class="form-label">Rubrik</label>
@@ -301,7 +307,7 @@
                         </form> -->
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary w-100" @click="addArticle">Reservera</button>
+                        <button type="button" class="btn btn-primary w-100" @click="addArticle">Lägg i varukorg</button>
                     </div>
                 </div>
             </div>
@@ -339,10 +345,11 @@
             categories: ['Frukt', 'Grönsaker', 'Mejeriprodukter', 'Bröd', 'Kött', 'Chark', 'Fisk', 'Skaldjur', 'Kolonialvaror', 'Drycker', 'Godis', 'Snacks', 'Färdigmat', 'Frysta produkter'],
             selectedCategories: [],
             newArticle: { title: '', description: '', category: '', image: '' },
+            selectedItem: null,
             items: {
                 'Frukt': [
-                    { title: 'Klementiner', image: './frukt1.jpg', alt: 'Frukt Image 1', price: 169 },
-                    { title: 'Jordgubbar', image: './frukt2.jpg', alt: 'Frukt Image 2', price: 49 },
+                    { title: 'Klementiner', image: './frukt1.jpg', description: 'Ekologiskt odlade klementiner i påsar med 10st i varje påse.', price: 169 },
+                    { title: 'Jordgubbar', image: './frukt2.jpg', description: 'Ekologiskt odlade jordgubbar i box. (Ca 1 liter).', price: 49 },
                     { image: 'https://via.placeholder.com/150?text=Frukt+3', alt: 'Frukt Image 3' },
                     { image: 'https://via.placeholder.com/150?text=Frukt+4', alt: 'Frukt Image 4' },
                     { image: 'https://via.placeholder.com/150?text=Frukt+5', alt: 'Frukt Image 5' }
@@ -367,22 +374,7 @@
                     { image: 'https://via.placeholder.com/150?text=Frukt+3', alt: 'Frukt Image 3' },
                     { image: 'https://via.placeholder.com/150?text=Frukt+4', alt: 'Frukt Image 4' },
                     { image: 'https://via.placeholder.com/150?text=Frukt+5', alt: 'Frukt Image 5' }
-                ],
-                'Drycker': [
-                    { image: 'https://via.placeholder.com/150?text=Gr%C3%B6nsaker+1', alt: 'Grönsaker Image 1' },
-                    { image: 'https://via.placeholder.com/150?text=Gr%C3%B6nsaker+2', alt: 'Grönsaker Image 2' },
-                    { image: 'https://via.placeholder.com/150?text=Gr%C3%B6nsaker+3', alt: 'Grönsaker Image 3' },
-                    { image: 'https://via.placeholder.com/150?text=Gr%C3%B6nsaker+4', alt: 'Grönsaker Image 4' },
-                    { image: 'https://via.placeholder.com/150?text=Gr%C3%B6nsaker+5', alt: 'Grönsaker Image 5' }
-                ],
-                'Godis': [
-                    { image: 'https://via.placeholder.com/150?text=Mejeriprodukter+1', alt: 'Mejeriprodukter Image 1' },
-                    { image: 'https://via.placeholder.com/150?text=Mejeriprodukter+2', alt: 'Mejeriprodukter Image 2' },
-                    { image: 'https://via.placeholder.com/150?text=Mejeriprodukter+3', alt: 'Mejeriprodukter Image 3' },
-                    { image: 'https://via.placeholder.com/150?text=Mejeriprodukter+4', alt: 'Mejeriprodukter Image 4' },
-                    { image: 'https://via.placeholder.com/150?text=Mejeriprodukter+5', alt: 'Mejeriprodukter Image 5' }
-                ],
-                // Add items for other categories
+                ]
             }
         },
         mounted() {
@@ -427,8 +419,12 @@
                     gap: 16, // Adjust the gap between items
                 }).mount()
             },
-            openFormModal(item) {
+            openFormModal(item=null) {
                 console.log("jjd")
+
+                if (item) {
+                    this.selectedItem = item
+                }
 
                 // Open the modal for adding a new article
                 var myModal = new bootstrap.Modal(document.getElementById('addArticleModal'))
