@@ -257,7 +257,7 @@
                             <!-- <div class="image-overlay"></div> -->
                             <div class="text-bottom p-3">
                                 <div style="font-size:0.875rem">{{ item.title }}</div>
-                                <div class="ms-auto" style="font-size:1.125rem;font-weight:500">{{ item.price }} kr <span style="font-weight:400;font-size:0.875rem;color:#656f79">/ st</span></div>
+                                <div v-if="item.price" class="ms-auto" style="font-size:1.125rem;font-weight:500">{{ item.price }} kr <span style="font-weight:400;font-size:0.875rem;color:#656f79">/ st</span></div>
                             </div>
                         </div>
                     </div>
