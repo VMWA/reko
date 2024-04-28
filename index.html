@@ -200,8 +200,14 @@
             padding: .5rem 1rem;
         }
 
-        .my-container {
+        .market-container {
             height: 100dvh; 
+            overflow: hidden;
+        }
+
+        .market-container.dark {
+            background-color: #001600;
+            color: #fcfff0;
         }
 
         .slide-up-enter-active, .slide-up-leave-active {
@@ -227,16 +233,7 @@
 <body>
 
 <div id="app">
-
-    <div class="d-flex my-container flex-column">
-        <!-- <div class="d-flex my-container flex-column">
-          <header style="position:fixed;top:0;left:0;right:0;z-index:1">
-                <ul class="nav">
-                    <li class="d-flex nav-item">
-                        <a href="#" class="nav-link text-decoration-none bebas-neue-regular" style="font-size: 1.125rem;color: #001600;"><i class="bi bi-list me-2"></i>GREENDEAL</a>
-                    </li>
-                </ul>
-          </header> -->
+    <div class="d-flex market-container flex-column" :class="{'dark': this.mode == 'sell'}">
 
           <transition name="slide-up">
             <div v-if="topVisible" @click="handleClickTop" class="split-screen top text-center align-items-center d-flex justify-content-center" style="height: 50vh;background-color: #fcfff0;">
@@ -250,10 +247,9 @@
             </div>
           </transition> 
 
-          <div v-if="mode == 'buy'">
+          <div class="p-0">
 
-
-            <header>
+            <!-- <header>
                 <ul class="nav border-bottom bebas-neue-regular">
                     <li class="nav-item">
                         <a class="d-flex nav-link p-3 align-items-center" href="#"><i class="bi bi-chevron-left me-2" style="font-size:0.875rem"></i>Karlstad - 27 Maj</a>
@@ -262,9 +258,9 @@
                       <a class="nav-link p-3" aria-current="page" href="#"><small><i class="bi bi-list"></i></small></a>
                     </li>
                 </ul>
-            </header>
+            </header> -->
 
-            <div class="p-3">
+            <div class="d-none container-sm">
                 <form class="mb-3">
                     <div class="input-group">
                         <!-- <div class="input-group-prepend">
@@ -273,8 +269,7 @@
                         <input type="text" class="search form-control rounded-3" placeholder="Sök vara" style="border:1px solid #001600">
                     </div>
                 </form>
-        
-                  <ul class="list-group">
+                <ul class="list-group">
                     <li v-for="article, index in articles" :key="index" class="list-group-item rounded-3 p-3 mb-2" style="border:1px solid #001600" @click.stop="openFormModal(item)">
                       <div>
                         <!-- Three items per row on large screens -->
@@ -289,8 +284,10 @@
                           </div>
                       </div>
                     </li>
-                  </ul>
+                </ul>
+            </div>
 
+            <div v-else>
             </div>
 
             
@@ -503,20 +500,14 @@
         },
         methods: {
             handleClickTop() {
+                this.mode = 'buy';
                 this.topVisible = false
                 this.bottomVisible = false
-
-                setTimeout(() => {
-                    this.mode = 'buy';
-                }, 600) // 600 milliseconds delay (0.6 seconds)
             },
             handleClickBottom() {
+                this.mode = 'sell';
                 this.topVisible = false
                 this.bottomVisible = false
-
-                setTimeout(() => {
-                    this.mode = 'sell';
-                }, 600) // 600 milliseconds delay (0.6 seconds)
             },
             initializeGlide(categoryName) {
                 new Glide(`#glide-${categoryName}`, {
