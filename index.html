@@ -213,17 +213,17 @@
 
 <div id="app">
 
-    <div class="d-flex flex-column vh-100">
-        <div class="split-screen top text-center align-items-center d-flex justify-content-center" style="height: 50vh;background-color: #fcfff0;">
+    <div v-if="mode == null" class="d-flex flex-column vh-100">
+        <div @click="mode = 'buy'" class="split-screen top text-center align-items-center d-flex justify-content-center" style="height: 50vh;background-color: #fcfff0;">
           <a href="#" class="text-decoration-none text-dark bebas-neue-regular" style="font-size: 6rem;color:#001600">KÖP</a>
         </div>
-        <div class="split-screen bottom text-center align-items-center d-flex justify-content-center" style="height: 50vh;background-color: #001600;">
+        <div @click="mode = 'sell'" class="split-screen bottom text-center align-items-center d-flex justify-content-center" style="height: 50vh;background-color: #001600;">
           <a href="#" class="text-decoration-none text-white bebas-neue-regular" style="font-size: 6rem;">SÄLJ</a>
         </div>
     </div>
     
 
-    <div class="d-none">
+    <div v-if="mode == 'buy'">
         
       
         <!-- Category filters -->
@@ -385,6 +385,7 @@
     new Vue({
         el: '#app',
         data: {
+            mode: null,
             articles: [
                 { id: 1, title: 'Mjölk', description: 'Färsk mjölk från lokala gårdar', category: 'Mejeriprodukter', image: './frukt1.jpg', price: 169 },
                 { id: 2, title: 'Äpple', description: 'Färska äpplen av hög kvalitet', category: 'Frukt', image: './frukt2.jpg', price: 49 },
