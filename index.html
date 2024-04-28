@@ -243,18 +243,28 @@
               <a href="#" class="text-decoration-none text-dark bebas-neue-regular" style="font-size: 6rem;color:#001600">KÖP</a>
             </div>
            </transition>
+
           <transition name="slide-down">
             <div v-if="bottomVisible" @click="handleClickBottom" class="split-screen bottom text-center align-items-center d-flex justify-content-center" style="height: 50vh;background-color: #001600;">
               <a href="#" class="text-decoration-none bebas-neue-regular" style="font-size: 6rem;color: #fcfff0;">SÄLJ</a>
             </div>
           </transition> 
 
-          <div v-if="mode == 'buy'" class="p-3">
+          <div v-if="mode == 'buy'">
 
-                <h1 class="bebas-neue-regular mb-3">
-                    <i class="bi bi-calendar me-3"></i>27 Maj · Karlstad
-                </h1>
 
+            <header>
+                <ul class="nav border-bottom bebas-neue-regular">
+                    <li class="nav-item">
+                        <a class="d-flex nav-link p-3 align-items-center" href="#"><i class="bi bi-chevron-left me-2" style="font-size:0.875rem"></i>Karlstad - 27 Maj</a>
+                    </li>
+                    <li class="nav-item ms-auto">
+                      <a class="nav-link p-3" aria-current="page" href="#"><small><i class="bi bi-list"></i></small></a>
+                    </li>
+                </ul>
+            </header>
+
+            <div class="p-3">
                 <form class="mb-3">
                     <div class="input-group">
                         <!-- <div class="input-group-prepend">
@@ -263,23 +273,27 @@
                         <input type="text" class="search form-control rounded-3" placeholder="Sök vara" style="border:1px solid #001600">
                     </div>
                 </form>
-    
-              <ul class="list-group">
-                <li v-for="article, index in articles" :key="index" class="list-group-item rounded-3 p-3 mb-2" style="border:1px solid #001600" @click.stop="openFormModal(item)">
-                  <div>
-                    <!-- Three items per row on large screens -->
-                      <div class="d-flex align-items-start">
-                        <img v-if="article.image" :src="article.image" alt="Product Image" class="rounded" style="max-width: 70px;border:1px solid #001600">
-                        <div v-else class="bg-light rounded" style="height:70px;width:70px;border:1px solid #001600"></div>
-                        <div class="ms-3 flex-grow-1">
-                          <h5 class="mb-0">{{ article.title }}</h5>
-                          <p class="mb-0">{{ article.description }}</p>
-                          <strong style="font-size: 1.25rem" class="ms-auto mb-0">{{ article.price }} kr</strong>
-                        </div>
+        
+                  <ul class="list-group">
+                    <li v-for="article, index in articles" :key="index" class="list-group-item rounded-3 p-3 mb-2" style="border:1px solid #001600" @click.stop="openFormModal(item)">
+                      <div>
+                        <!-- Three items per row on large screens -->
+                          <div class="d-flex align-items-start">
+                            <img v-if="article.image" :src="article.image" alt="Product Image" class="rounded" style="max-width: 70px;border:1px solid #001600">
+                            <div v-else class="bg-light rounded" style="height:70px;width:70px;border:1px solid #001600"></div>
+                            <div class="ms-3 flex-grow-1">
+                              <h5 class="mb-0">{{ article.title }}</h5>
+                              <p class="mb-0">{{ article.description }}</p>
+                              <strong style="font-size: 1.25rem" class="ms-auto mb-0">{{ article.price }} kr</strong>
+                            </div>
+                          </div>
                       </div>
-                  </div>
-                </li>
-              </ul>
+                    </li>
+                  </ul>
+
+            </div>
+
+            
           </div>
 
           
@@ -301,16 +315,7 @@
             </div>
         </div> -->
 
-        <header>
-            <ul class="nav border-bottom">
-                <li class="nav-item">
-                    <a class="nav-link p-3" href="#"><i class="bi bi-geo-alt me-2"></i>Karlstad</a>
-                </li>
-                <li class="nav-item ms-auto">
-                  <a class="nav-link p-3" aria-current="page" href="#">Onsdag 24 April<i class="ms-2 bi bi-chevron-down"></i></a>
-                </li>
-            </ul>
-        </header>
+        
 
         <!-- <div>
             <button class="btn btn-primary mt-3" @click="openFormModal"><i class="bi bi-plus-lg"></i> Lägg till</button>   
