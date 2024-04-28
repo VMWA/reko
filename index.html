@@ -18,7 +18,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 
         body {
-            background-color: #f8f9fa;
+            background-color: #fcfff0;
             font-family: "Roboto", sans-serif;
         }
 
@@ -209,6 +209,22 @@
             height: 100dvh; 
         }
 
+        .slide-up-enter-active, .slide-up-leave-active {
+            transition: transform 0.5s;
+        }
+
+        .slide-up-enter, .slide-up-leave-to {
+            transform: translateY(-100%);
+        }
+
+        .slide-down-enter-active, .slide-down-leave-active {
+            transition: transform 0.5s;
+        }
+
+        .slide-down-enter, .slide-down-leave-to {
+            transform: translateY(100%);
+        }
+
     </style>
 
 </head>
@@ -217,17 +233,25 @@
 
 <div id="app">
 
-    <div v-if="mode == null" class="d-flex my-container flex-column">
-        <div @click="mode = 'buy'" class="split-screen top text-center align-items-center d-flex justify-content-center" style="height: 50vh;background-color: #fcfff0;">
-          <a href="#" class="text-decoration-none text-dark bebas-neue-regular" style="font-size: 6rem;color:#001600">KÖP</a>
-        </div>
-        <div @click="mode = 'sell'" class="split-screen bottom text-center align-items-center d-flex justify-content-center" style="height: 50vh;background-color: #001600;">
-          <a href="#" class="text-decoration-none text-white bebas-neue-regular" style="font-size: 6rem;">SÄLJ</a>
-        </div>
+    <div class="d-flex my-container flex-column">
+        <transition name="slide-up">
+            <div v-if="topVisible" class="d-flex my-container flex-column">
+                <div @click="handleClickTop" class="split-screen top text-center align-items-center d-flex justify-content-center" style="height: 50vh;background-color: #fcfff0;">
+                    <a href="#" class="text-decoration-none text-dark bebas-neue-regular" style="font-size: 6rem;color:#001600">KÖP</a>
+                </div>
+            </div>
+        </transition>
+        <transition name="slide-down">
+            <div v-if="bottomVisible" class="d-flex my-container flex-column">
+                <div @click="handleClickBottom" class="split-screen bottom text-center align-items-center d-flex justify-content-center" style="height: 50vh;background-color: #001600;">
+                    <a href="#" class="text-decoration-none text-white bebas-neue-regular" style="font-size: 6rem;">SÄLJ</a>
+                </div>
+            </div>
+        </transition>
     </div>
     
 
-    <div v-if="mode == 'buy'">
+    <div class="d-none">
         
       
         <!-- Category filters -->
@@ -389,7 +413,9 @@
     new Vue({
         el: '#app',
         data: {
-            mode: null,
+            topVisible: true,
+            bottomVisible: true,
+            activeIndex: null,
             articles: [
                 { id: 1, title: 'Mjölk', description: 'Färsk mjölk från lokala gårdar', category: 'Mejeriprodukter', image: './frukt1.jpg', price: 169 },
                 { id: 2, title: 'Äpple', description: 'Färska äpplen av hög kvalitet', category: 'Frukt', image: './frukt2.jpg', price: 49 },
@@ -457,6 +483,14 @@
             }
         },
         methods: {
+            handleClickTop() {
+                this.topVisible = false
+                this.bottomVisible = false
+            },
+            handleClickBottom() {
+                this.topVisible = false
+                this.bottomVisible = false
+            },
             initializeGlide(categoryName) {
                 new Glide(`#glide-${categoryName}`, {
                     type: 'slider',
