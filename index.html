@@ -206,7 +206,7 @@
         }
 
         .my-container {
-            height: 100dvh !important; 
+            height: 100dvh; 
         }
 
         .slide-up-enter-active, .slide-up-leave-active {
@@ -234,7 +234,7 @@
 <div id="app">
 
     <div class="d-flex my-container flex-column">
-        <transition name="slide-up">
+        <!-- <transition name="slide-up">
             <div v-if="topVisible" class="d-flex my-container flex-column">
                 <div @click="handleClickTop" class="split-screen top text-center align-items-center d-flex justify-content-center" style="height: 50vh;background-color: #fcfff0;">
                     <a href="#" class="text-decoration-none text-dark bebas-neue-regular" style="font-size: 6rem;color:#001600">KÖP</a>
@@ -247,7 +247,16 @@
                     <a href="#" class="text-decoration-none text-white bebas-neue-regular" style="font-size: 6rem;">SÄLJ</a>
                 </div>
             </div>
-        </transition>
+        </transition> -->
+
+        <div class="d-flex my-container flex-column">
+            <div @click="" class="split-screen top text-center align-items-center d-flex justify-content-center" style="height: 50vh;background-color: #fcfff0;">
+              <a href="#" class="text-decoration-none text-dark bebas-neue-regular" style="font-size: 6rem;color:#001600">KÖP</a>
+            </div>
+            <div @click="" class="split-screen bottom text-center align-items-center d-flex justify-content-center" style="height: 50vh;background-color: #001600;">
+              <a href="#" class="text-decoration-none text-white bebas-neue-regular" style="font-size: 6rem;">SÄLJ</a>
+            </div>
+        </div>
     </div>
     
 
