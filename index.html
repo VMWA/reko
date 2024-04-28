@@ -205,6 +205,10 @@
             padding: .5rem 1rem;
         }
 
+        .my-container {
+            height: 100dvh; 
+        }
+
     </style>
 
 </head>
@@ -213,7 +217,7 @@
 
 <div id="app">
 
-    <div v-if="mode == null" class="d-flex flex-column vh-100">
+    <div v-if="mode == null" class="d-flex my-container flex-column">
         <div @click="mode = 'buy'" class="split-screen top text-center align-items-center d-flex justify-content-center" style="height: 50vh;background-color: #fcfff0;">
           <a href="#" class="text-decoration-none text-dark bebas-neue-regular" style="font-size: 6rem;color:#001600">KÖP</a>
         </div>
