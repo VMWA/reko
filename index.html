@@ -14,9 +14,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.4/tiny-slider.css">
     
     <style>
+
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
         body {
             background-color: #f8f9fa;
             font-family: "Roboto", sans-serif;
+        }
+
+        .bebas-neue-regular {
+            font-family: "Bebas Neue", sans-serif;
+            font-weight: 400;
+            font-style: normal;
         }
 
         .event {
@@ -203,7 +212,18 @@
 <body>
 
 <div id="app">
-    <div class="">
+
+    <div class="d-flex flex-column vh-100">
+        <div class="split-screen top text-center align-items-center d-flex justify-content-center" style="height: 50%;background-color: #fcfff0;">
+          <a href="#" class="text-decoration-none text-dark bebas-neue-regular" style="font-size: 6rem;color:#001600">KÖP</a>
+        </div>
+        <div class="split-screen bottom text-center align-items-center d-flex justify-content-center" style="height: 50%;background-color: #001600;">
+          <a href="#" class="text-decoration-none text-white bebas-neue-regular" style="font-size: 6rem;">SÄLJ</a>
+        </div>
+    </div>
+    
+
+    <div class="d-none">
         
       
         <!-- Category filters -->
@@ -232,7 +252,7 @@
             <button class="btn btn-primary mt-3" @click="openFormModal"><i class="bi bi-plus-lg"></i> Lägg till</button>   
         </div> -->
 
-        <div class="p-3">
+        <div class="container p-3">
             <!-- <h4 class="mb-3">Veckans utbud</h4> -->
 
             <form class="mb-3">
@@ -254,18 +274,23 @@
             </div> -->
 
             <ul class="list-group">
-                <li v-for="article, index in articles" :key="index" class="list-group-item rounded shadow-sm p-3 mb-2 border-0" @click.stop="openFormModal(article)">
-                  <div class="d-flex align-items-center">
-                    <img :src="article.image" alt="Product Image" class="rounded" style="max-width: 70px;">
-                    <div class="ms-3 flex-grow-1">
-                      <h5 class="mb-0">{{ article.title }}</h5>
-                      <p class="mb-0">{{ article.description }}</p>
-                      <p class="text-muted mb-0">{{ article.price }} kr</p>
+                <li v-for="article, index in articles" :key="index" class="list-group-item rounded shadow-sm p-3 mb-2 border-0">
+                  <div class="row">
+                    <div class="col-lg-4 mb-3 mb-lg-0"> <!-- Three items per row on large screens -->
+                      <div class="d-flex align-items-start">
+                        <img v-if="article.image" :src="article.image" alt="Product Image" class="rounded" style="max-width: 70px;">
+                        <div v-else class="bg-light rounded" style="height:70px;width:70px"></div>
+                        <div class="ms-3 flex-grow-1">
+                          <h5 class="mb-0">{{ article.title }}</h5>
+                          <p class="mb-0">{{ article.description }}</p>
+                          <p class="text-muted mb-0">{{ article.price }} kr</p>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </li>
-                <!-- Add more list items as needed -->
-            </ul>
+              </ul>
+              
 
             <!-- <div v-for="(category, categoryName) in items" :key="categoryName" class="category">
                 <div class="d-flex justify-content-between align-items-end">
@@ -363,7 +388,7 @@
             articles: [
                 { id: 1, title: 'Mjölk', description: 'Färsk mjölk från lokala gårdar', category: 'Mejeriprodukter', image: './frukt1.jpg', price: 169 },
                 { id: 2, title: 'Äpple', description: 'Färska äpplen av hög kvalitet', category: 'Frukt', image: './frukt2.jpg', price: 49 },
-                { id: 3, title: 'Köttbullar', description: 'Hemlagade köttbullar', category: 'Kött', image: 'https://via.placeholder.com/150' },
+                { id: 3, title: 'Köttbullar', description: 'Hemlagade köttbullar', category: 'Kött', image: null},
                 { id: 1, title: 'Mjölk', description: 'Färsk mjölk från lokala gårdar', category: 'Mejeriprodukter', image: './frukt1.jpg', price: 169 },
                 { id: 2, title: 'Äpple', description: 'Färska äpplen av hög kvalitet', category: 'Frukt', image: './frukt2.jpg', price: 49 },
                 { id: 3, title: 'Köttbullar', description: 'Hemlagade köttbullar', category: 'Kött', image: 'https://via.placeholder.com/150' },
