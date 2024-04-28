@@ -250,12 +250,16 @@
         </transition> -->
 
         <div class="d-flex my-container flex-column">
-            <div @click="" class="split-screen top text-center align-items-center d-flex justify-content-center" style="height: 50vh;background-color: #fcfff0;">
+          <transition name="slide-up">
+            <div v-if="topVisible" @click="handleClickTop" class="split-screen top text-center align-items-center d-flex justify-content-center" style="height: 50vh;background-color: #fcfff0;">
               <a href="#" class="text-decoration-none text-dark bebas-neue-regular" style="font-size: 6rem;color:#001600">KÖP</a>
             </div>
-            <div @click="" class="split-screen bottom text-center align-items-center d-flex justify-content-center" style="height: 50vh;background-color: #001600;">
+           </transition>
+          <transition name="slide-down">
+            <div v-if="bottomVisible" @click="handleClickBottom" class="split-screen bottom text-center align-items-center d-flex justify-content-center" style="height: 50vh;background-color: #001600;">
               <a href="#" class="text-decoration-none text-white bebas-neue-regular" style="font-size: 6rem;">SÄLJ</a>
             </div>
+          </transition> 
         </div>
     </div>
     
