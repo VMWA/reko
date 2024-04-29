@@ -1,0 +1,311 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+body {
+    color: #001600;
+    background-color: #fcfff0;
+    font-family: "Roboto", sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Bebas Neue", sans-serif;
+}
+
+a {
+    text-decoration: none;
+    cursor: pointer;
+    color: inherit;
+}
+
+a:hover {
+    color: #001600;
+}
+
+.btn-success {
+    background-color: #001600;
+    color: #fcfff0;
+    border-color: #001600;
+}
+
+.btn-success:disabled {
+    border-color: #001600;
+    background-color: transparent;
+    cursor: not-allowed;
+    color: #001600;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.close {
+    border: none;
+    outline: none;
+    background-color: transparent;
+    padding: 0; /* Optional: remove default padding */
+    cursor: pointer; /* Optional: add pointer cursor for better UX */
+  }
+
+.bebas-neue-regular {
+    font-family: "Bebas Neue", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.event {
+    overflow: hidden;
+    border-radius: 0.75rem;
+    /* background-color: #fff7e1; */
+}
+
+.ornament {
+    opacity: 0.1;
+    width: 100%;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #ededed !important;
+}
+
+.border-top {
+    border-top: 1px solid #ededed !important;
+}
+
+.nav-item a {
+    color: #001600;
+}
+
+.breadcrumb .breadcrumb-item a {
+    text-decoration: none;
+    font-size: 0.875rem;
+    color: white;
+}
+
+.product-area {
+    min-height: 100vh; /* Minimum height to fill the screen */
+}
+
+.bi-facebook {
+    font-size: 2rem;
+    color: #1877f2; /* Facebook blue */
+}
+
+.bi-facebook:hover {
+    color: #0f5ea0;
+    cursor: pointer;
+}
+
+.content {
+    padding-bottom: 60px; 
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    background-color: #fcfff0;
+}
+
+.menu ul {
+    list-style-type: none; /* Remove default list styles */
+    padding: 0; /* Remove default padding */
+    margin: 0;
+    display: flex; /* Use flexbox to align items */
+    justify-content: space-around; /* Distribute items evenly */
+}
+
+.menu ul li {
+    width: 25%; /* Set equal width for each list item */
+    text-align: center; /* Center align the text */
+    font-size: 0.75rem; /* Set smaller font size */
+}
+
+.menu ul li a {
+    text-decoration: none; /* Remove underline from links */
+    color: inherit; /* Inherit text color */
+}
+
+.menu ul li i {
+    display: block; /* Make the icon a block element */
+    font-size: 1.25rem; /* Set icon size */
+}
+
+.modal-header button {
+    padding: 0;
+    font-size: 1.25rem;
+}
+
+/* Custom styles for bottom-sliding modal */
+.modal.bottom-slide-modal .modal-dialog {
+    position: fixed;
+    bottom: -100%; /* Initially hides the modal off-screen */
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 100%;
+    max-width: 600px; /* Adjust the maximum width as needed */
+    transition: bottom 0.3s ease-in-out; /* Smooth transition for sliding effect */
+}
+
+/* Set height for modal content */
+.modal.bottom-slide-modal .modal-content {
+    height: 70vh; /* Set the height to 70% of the viewport height */
+    overflow-y: auto; /* Enable vertical scrolling if content exceeds modal height */
+}
+
+/* Show the modal by sliding it up from the bottom */
+.modal.bottom-slide-modal.show .modal-dialog {
+    bottom: 0;
+}
+
+/* Hide the modal by sliding it down */
+.modal.bottom-slide-modal.hide .modal-dialog {
+    bottom: -100%;
+    transition-delay: 0.3s;
+}
+
+.modal-content {
+    border-radius: 1rem; /* Adjust the border-radius values as needed */
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.image-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgb(0 0 0 / 50%));
+}
+
+.form-control:focus {
+    border-color: #001600;
+    box-shadow: 0 0 0 0.25rem rgb(13 225 253 / 25%);
+}
+
+.image-container {
+    position: relative;
+    border-radius: 0.75rem; /* Adjust as needed */
+    overflow: hidden;
+}
+
+.image-container img {
+    width: 100%;
+    height: auto;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(0, 0, 0, 1));
+}
+
+.text-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    text-align: center;
+    /* background-color: rgba(0, 0, 0, 0.5); */
+}
+
+.text-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background-color: white;
+}
+
+.search {
+    font-size: 1.125rem;
+    padding: .5rem 1rem;
+}
+
+.market-container {
+    height: 100dvh; 
+    overflow: hidden;
+}
+
+.splash {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #fcfff0;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    width: 100vw;
+    height: 100dvh; 
+    overflow: hidden;
+    padding: 3rem;
+}
+
+.splash a {
+    text-decoration: none;
+    cursor: pointer;
+    color: #001600;
+    font-size: 5rem;
+}
+
+.splash p {
+    font-size: 1.75rem;
+}
+
+.light {
+    background-color: #fcfff0;
+    color: #001600;
+}
+
+.dark {
+    background-color: #001600;
+    color: #fcfff0;
+}
+
+.fade-leave-active {
+    transition: opacity 0.5s;
+}
+.fade-leave-to {
+    opacity: 0;
+}
+
+.slide-up-enter-active, .slide-up-leave-active {
+    transition: transform 0.5s;
+}
+
+.slide-up-enter, .slide-up-leave-to {
+    transform: translateY(-100%);
+}
+
+.slide-down-enter-active, .slide-down-leave-active {
+    transition: transform 0.5s;
+}
+
+.slide-down-enter, .slide-down-leave-to {
+    transform: translateY(100%);
+}
+
+/* CSS for list items transition */
+.list-item-enter-active {
+    transition: opacity 0.5s ease;
+}
+
+.list-item-enter {
+    opacity: 0;
+}
