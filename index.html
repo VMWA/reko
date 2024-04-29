@@ -293,7 +293,7 @@
             methods: {
                 addToCart(item) {
                     this.cart.push(item) // Add item to the cart array
-                    this.showCart = true
+                    this.myModal.hide()
                 },
                 removeFromCart(item) {
                     const index = this.cart.findIndex(cartItem => cartItem.id === item.id)
