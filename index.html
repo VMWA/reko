@@ -177,7 +177,7 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button v-if="modalView == 'cart'" :disabled="!cart.length" type="button" class="btn btn-success rounded-pill w-100" @click="modalView = 'finish'">Skicka beställning</button>
+                        <button v-if="modalView == 'cart'" :disabled="!cart.length" type="button" class="btn btn-success rounded-pill w-100" @click="confirmOrder">Skicka beställning</button>
              
                         <button v-if="modalView == 'product'" type="button" class="btn btn-success rounded-pill w-100" @click="addToCart(selectedItem)" >
                             Lägg i varukorg
@@ -362,13 +362,15 @@
 
                     this.myModal.hide()
                 },
-                submitOrder() {
-                    if (confirm("Är du säker på att du vill beställa? Din varukorg kommer att tömmas.")) {
-                        this.modalView = 'success'
-                        this.cart = []
-                    } else {
-                        // User canceled the confirmation
+                confirmOrder() { 
+                    if (confirm("Är du säker på att du vill beställa?")) {
+                        this.submitOrder()
+                        this.modalView = 'finish'
                     }
+                },
+                submitOrder() {
+                    this.modalView = 'success'
+                    this.cart = []
                 }
             }
         }).mount('#app')
