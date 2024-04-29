@@ -156,7 +156,7 @@ ul {
 
 /* Set height for modal content */
 .modal.bottom-slide-modal .modal-content {
-    height: 70vh; /* Set the height to 70% of the viewport height */
+    height: 80vh; /* Set the height to 70% of the viewport height */
     overflow-y: auto; /* Enable vertical scrolling if content exceeds modal height */
 }
 
