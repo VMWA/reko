@@ -31,17 +31,15 @@
                     <div>
                         <img src="./ornament2.png" alt="Product Image" class="rounded" style="width:100%;max-width:520px;">
                     </div>
-                    <a @click.prevent="currentPage = 'select'" class="bebas-neue-regular" style="line-height:1">Bondens Marknad</a>
+                    <a class="bebas-neue-regular" style="line-height:1">Bondens Marknad</a>
                 </div>
                 
                 <p class="mb-2 text-center" style="font-size:1.25rem;">Där producenter och konsumenter möts.</p>
                 <small style="text-transform: uppercase;font-weight:300;">www.bondensmarknad.se</small>
 
-                <!-- Facebook login button -->
-                <div class="d-flex">
-                    <div onlogin="checkLoginState()" class="fb-login-button" data-width="100%" data-size="large" data-button-type="" data-layout="" data-auto-logout-link="true" data-use-continue-as="false"></div>
-                    <div id="status"></div>
-                </div>
+                <button @click.prevent="currentPage = 'select'" type="button" class="btn btn-success rounded-pill mt-4 px-3">
+                    Logga in med Facebook
+                </button>
             </div>
         </transition>
 
@@ -214,9 +212,6 @@
         </footer> -->
     </div>
 
-    <!-- Facebook SDK -->
-    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/sv_SE/sdk.js#xfbml=1&version=v19.0&appId=803647181665996" nonce="k0nW8QX2"></script>
-
     <!-- Bootstrap JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -303,21 +298,6 @@
             mounted() {
                 // Open the modal for adding a new article
                 this.myModal = new bootstrap.Modal(document.getElementById('myModal'))
-
-                // Facebook login
-                window.fbAsyncInit = function() {
-                    FB.init({
-                        appId      : '803647181665996',
-                        cookie     : true,                     // Enable cookies to allow the server to access the session.
-                        xfbml      : true,                     // Parse social plugins on this webpage.
-                        version    : 'v19.0'                   // Use this Graph API version for this call.
-                    })
-
-
-                    FB.getLoginStatus(function(response) {   // Called after the JS SDK has been initialized.
-                        this.statusChangeCallback(response)        // Returns the login status.
-                    })
-                }
             },
             computed: {
                 uniqueCategories() {
@@ -332,31 +312,6 @@
                 }
             },
             methods: {
-                testAPI() { // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
-                    console.log('Welcome!  Fetching your information.... ')
-
-                    FB.api('/me', function(response) {
-                        console.log('Successful login for: ' + response.name)
-
-                        document.getElementById('status').innerHTML =
-                            'Thanks for logging in, ' + response.name + '!'
-                    })
-                },
-                statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
-                    console.log('statusChangeCallback')
-                    console.log(response) // The current login status of the person.
-                    
-                    if (response.status === 'connected') { // Logged into your webpage and Facebook.
-                        this.testAPI()
-                    } else { // Not logged into your webpage or we are unable to tell.
-                        document.getElementById('status').innerHTML = 'Please log into this webpage.'
-                    }
-                },
-                checkLoginState() {               // Called when a person is finished with the Login Button.
-                    FB.getLoginStatus(function(response) {   // See the onlogin handler
-                        this.statusChangeCallback(response)
-                    })
-                },
                 addToCart(item) {
                     this.cart.push(item) // Add item to the cart array
                     this.myModal.hide()
