@@ -56,44 +56,65 @@
             </transition>
         </div>
 
-        <div class="d-flex market-container flex-column vh-100 p-3" v-if="currentPage == 'buy'" :class="{'dark': this.theme == 'dark'}">
-
-            <div v-if="selectedMarket" class="container-sm">
-
-                <h1>{{ selectedMarket.name }}</h1>
-
-                <form class="mb-3">
-                    <div class="input-group">
-                        <!-- <div class="input-group-prepend">
-                                <button class="btn btn-outline-secondary" type="button"><i class="bi bi-search"></i></button>
-                            </div> -->
-                        <input type="text" class="form-control rounded-pill px-3" placeholder="Sök vara">
-                    </div>
-                </form>
-
-                <ul class="list-group">
-                    <li v-for="article, index in articles" :key="index" class="list-group-item px-0 mb-2 cursor-pointer" @click.stop="openModal(article)">
-                        <div class="d-flex align-items-start">
-                            <img v-if="article.image" :src="article.image" alt="Product Image" class="rounded" style="max-width: 70px;border:1px solid #001600">
-
-                            <div v-else class="bg-light rounded" style="height:70px;width:70px"></div>
-
-                            <div class="ms-3">
-                                <h6 class="mb-0">{{ article.title }}</h6>
-                                <small class="mb-0">{{ article.description }}</small>
-                                <strong style="font-size: 1.25rem" class="ms-auto mb-0">{{ article.price }} kr</strong>
-                            </div>
+        <div class="d-flex market-container flex-column vh-100 p-0" v-if="currentPage == 'buy'" :class="{'dark': this.theme == 'dark'}">
+            <div v-if="selectedMarket">
+                <header class="border-bottom">
+                    <nav class="navbar">
+                        <div class="container-fluid">
+                            <a class="navbar-brand" href="#" @click.prevent="selectedMarket = null">
+                                <i class="bi bi-arrow-left me-2"></i>{{ selectedMarket.name }} 24/7
+                            </a>
                         </div>
-                    </li>
-                </ul>
-                <footer class="footer border-top p-3">
-                    <button type="button" class="btn btn-basic rounded-pill w-100" @click="openModal()">
-                        <i class="bi bi-cart me-2"></i>Varukorg <span>({{ cart.length }})</span>
-                    </button>
-                </footer>
+                    </nav>
+                </header>
+
+                <div class="p-3">
+                    <ul class="nav nav-tabs mb-3">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Info</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">Varor</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Producenter</a>
+                        </li>
+                    </ul>
+
+                    <form class="mb-3">
+                        <div class="input-group">
+                            <!-- <div class="input-group-prepend">
+                                    <button class="btn btn-outline-secondary" type="button"><i class="bi bi-search"></i></button>
+                                </div> -->
+                            <input type="text" class="form-control rounded-pill px-3" placeholder="Sök vara">
+                        </div>
+                    </form>
+
+                    <ul class="list-group">
+                        <li v-for="article, index in articles" :key="index" class="list-group-item px-0 mb-2 cursor-pointer" @click.stop="openModal(article)">
+                            <div class="d-flex align-items-start">
+                                <img v-if="article.image" :src="article.image" alt="Product Image" class="rounded" style="max-width: 70px;border:1px solid #001600">
+
+                                <div v-else class="bg-light rounded" style="height:70px;width:70px"></div>
+
+                                <div class="ms-3">
+                                    <h6 class="mb-0">{{ article.title }}</h6>
+                                    <small class="mb-0">{{ article.description }}</small>
+                                    <strong style="font-size: 1.25rem" class="ms-auto mb-0">{{ article.price }} kr</strong>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <footer class="footer border-top p-3">
+                        <button type="button" class="btn btn-basic rounded-pill w-100" @click="openModal()">
+                            <i class="bi bi-cart me-2"></i>Varukorg <span>({{ cart.length }})</span>
+                        </button>
+                    </footer>
+                </div>
             </div>
 
-            <div v-else>
+            <div class="p-3" v-else>
                 <h1>Välj marknad:</h1>
                 <ul>
                     <li v-for="(market, index) in markets" :key="index">
@@ -165,7 +186,7 @@
                         <div v-else-if="modalView == 'success'" class="text-center">
                             <h3>Tack för din beställning!</h3>
                             <p>En bekräftelse kommer att skickas via SMS.</p>
-                            <button @click.prevent="facebookLogin()" type="button" class="btn btn-basic rounded-pill mt-4 px-3">
+                            <button @click.prevent="facebookLogout()" type="button" class="btn btn-basic rounded-pill mt-4 px-3">
                                 Logga ut
                             </button>
                         </div>
@@ -311,6 +332,16 @@
                     
                     setTimeout(() => {
                         this.currentPage = 'select'
+                        this.loading = false
+                    }, 1500)
+                },
+                facebookLogout() {
+                    console.log('Facebook logout')
+
+                    this.loading = true
+                    
+                    setTimeout(() => {
+                        this.currentPage = 'start'
                         this.loading = false
                     }, 1500)
                 },
