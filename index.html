@@ -4,10 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test</title>
-
-    <!-- Vue 2 CDN -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2"></script> -->
+    <title>Bondens marknad - Där producenter och konsumenter möts.</title>
 
     <!-- Vue 3 CDN -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
@@ -29,7 +26,7 @@
             <div v-if="currentPage == 'start'" class="d-flex flex-column align-items-center justify-content-center splash">
                 <div v-if="loading" class="loading"></div>
 
-                <div v-else class="text-center" >
+                <div v-else class="text-center">
                     <img src="./ornament2.png" alt="Product Image" class="rounded mb-3" style="width:100%;max-width:520px;">
                     
                     <div class="d-block bebas-neue-regular" style="line-height:1;font-size:5rem">Bondens Marknad</div>
@@ -44,23 +41,17 @@
         </transition>
 
         <!-- Select buy or sell -->
-        <div v-if="currentPage == 'select'" class="d-flex market-container flex-column"
-            :class="{'dark': this.theme == 'dark'}">
+        <div v-if="currentPage == 'select'" class="d-flex market-container flex-column" :class="{'dark': this.theme == 'dark'}">
+
             <transition name="slide-up">
-                <div v-if="topVisible" @click.prevent="handleClickTop"
-                    class="split-screen top text-center align-items-center d-flex justify-content-center"
-                    style="height: 50vh;background-color: #fcfff0;">
-                    <a href="#" class="text-decoration-none text-dark bebas-neue-regular"
-                        style="font-size: 6rem;color:#001600">KÖP</a>
+                <div v-if="topVisible" @click.prevent="handleClickTop" class="split-screen top text-center align-items-center d-flex justify-content-center" style="height: 50vh;background-color: #fcfff0;">
+                    <a href="#" class="text-decoration-none text-dark bebas-neue-regular" style="font-size: 6rem;color:#001600">KÖP</a>
                 </div>
             </transition>
 
             <transition name="slide-down">
-                <div v-if="bottomVisible" @click.prevent="handleClickBottom"
-                    class="split-screen bottom text-center align-items-center d-flex justify-content-center"
-                    style="height: 50vh;background-color: #001600;">
-                    <a href="#" class="text-decoration-none bebas-neue-regular"
-                        style="font-size: 6rem;color: #fcfff0;">SÄLJ</a>
+                <div v-if="bottomVisible" @click.prevent="handleClickBottom" class="split-screen bottom text-center align-items-center d-flex justify-content-center" style="height: 50vh;background-color: #001600;">
+                    <a href="#" class="text-decoration-none bebas-neue-regular" style="font-size: 6rem;color: #fcfff0">SÄLJ</a>
                 </div>
             </transition>
         </div>
@@ -83,10 +74,9 @@
                 <ul class="list-group">
                     <li v-for="article, index in articles" :key="index" class="list-group-item px-0 mb-2 cursor-pointer" @click.stop="openModal(article)">
                         <div class="d-flex align-items-start">
-                            <img v-if="article.image" :src="article.image" alt="Product Image" class="rounded"
-                                style="max-width: 70px;border:1px solid #001600">
+                            <img v-if="article.image" :src="article.image" alt="Product Image" class="rounded" style="max-width: 70px;border:1px solid #001600">
 
-                            <div v-else class="bg-light rounded" style="height:70px;width:70px;border:1px solid #001600"></div>
+                            <div v-else class="bg-light rounded" style="height:70px;width:70px"></div>
 
                             <div class="ms-3">
                                 <h5 class="mb-0">{{ article.title }}</h5>
