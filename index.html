@@ -27,13 +27,12 @@
         <!-- A start page -->
         <transition name="fade">
             <div v-if="currentPage == 'start'" class="d-flex flex-column align-items-center justify-content-center splash">
-                <div v-if="loading">
-                    Loading
-                </div>
+                <div v-if="loading" class="loading"></div>
+
                 <div v-else class="text-center" >
                     <img src="./ornament2.png" alt="Product Image" class="rounded mb-3" style="width:100%;max-width:520px;">
                     
-                    <a class="d-block bebas-neue-regular" style="line-height:1">Bondens Marknad</a>
+                    <div class="d-block bebas-neue-regular" style="line-height:1;font-size:5rem">Bondens Marknad</div>
                 
                     <p class="mb-2 text-center" style="font-size:1.25rem;">Där producenter och konsumenter möts.</p>
     
@@ -322,7 +321,7 @@
                     setTimeout(() => {
                         this.currentPage = 'select'
                         this.loading = false
-                    }, 500)
+                    }, 1500)
                 },
                 addToCart(item) {
                     this.cart.push(item) // Add item to the cart array
