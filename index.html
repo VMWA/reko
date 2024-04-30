@@ -65,7 +65,7 @@
             </transition>
         </div>
 
-        <div class="d-flex flex-column vh-100 p-3" v-if="currentPage == 'buy'" :class="{'dark': this.theme == 'dark'}">
+        <div class="d-flex market-container flex-column vh-100 p-3" v-if="currentPage == 'buy'" :class="{'dark': this.theme == 'dark'}">
 
             <div v-if="selectedMarket" class="container-sm">
 
@@ -117,7 +117,7 @@
             </div>
         </div>
 
-        <div class="d-flex flex-column vh-100 p-5" v-if="currentPage == 'sell'" :class="{'dark': this.theme == 'dark'}">
+        <div class="d-flex flex-column market-container p-5" v-if="currentPage == 'sell'" :class="{'dark': this.theme == 'dark'}">
             <h1>Välj marknad:</h1>
         </div>
 
