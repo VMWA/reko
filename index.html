@@ -88,7 +88,7 @@
                 </ul>
                 <footer class="footer border-top p-3">
                     <button type="button" class="btn btn-basic rounded-pill w-100" @click="openModal()">
-                        Varukorg <span>({{ cart.length }})</span>
+                        <i class="bi bi-cart me-2"></i>Varukorg <span>({{ cart.length }})</span>
                     </button>
                 </footer>
             </div>
@@ -172,13 +172,13 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button v-if="modalView == 'cart'" :disabled="!cart.length" type="button" class="btn btn-success rounded-pill w-100" @click="confirmOrder">Skicka beställning</button>
+                        <button v-if="modalView == 'cart'" :disabled="!cart.length" type="button" class="btn btn-basic rounded-pill w-100" @click="confirmOrder">Skicka beställning</button>
              
-                        <button v-if="modalView == 'product'" type="button" class="btn btn-success rounded-pill w-100" @click="addToCart(selectedItem)" >
-                            Lägg i varukorg
+                        <button v-if="modalView == 'product'" type="button" class="btn btn-basic rounded-pill w-100" @click="addToCart(selectedItem)" >
+                            <i class="bi bi-plus-lg me-2"></i>Lägg i varukorg
                         </button>
 
-                        <button v-if="modalView == 'finish'" type="button" class="btn btn-success rounded-pill w-100" @click="submitOrder">
+                        <button v-if="modalView == 'finish'" type="button" class="btn btn-basic rounded-pill w-100" @click="submitOrder">
                             Bekräfta
                         </button>
 
