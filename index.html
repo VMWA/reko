@@ -36,7 +36,7 @@
                 
                     <p class="mb-2 text-center" style="font-size:1.25rem;">Där producenter och konsumenter möts.</p>
     
-                    <button @click.prevent="facebookLogin()" type="button" class="btn btn-success rounded-pill mt-4 px-3">
+                    <button @click.prevent="facebookLogin()" type="button" class="btn btn-basic rounded-pill mt-4 px-3">
                         <i class="bi bi-facebook me-2"></i>Logga in med Facebook
                     </button>
                 </div>
@@ -76,14 +76,12 @@
                         <!-- <div class="input-group-prepend">
                                 <button class="btn btn-outline-secondary" type="button"><i class="bi bi-search"></i></button>
                             </div> -->
-                        <input type="text" class="search form-control rounded-3" placeholder="Sök vara"
-                            style="border:1px solid #001600">
+                        <input type="text" class="search form-control rounded-3" placeholder="Sök vara">
                     </div>
                 </form>
 
                 <ul class="list-group">
-                    <li v-for="article, index in articles" :key="index" class="list-group-item rounded-3 p-3 mb-2 cursor-pointer"
-                        style="border:1px solid #001600" @click.stop="openModal(article)">
+                    <li v-for="article, index in articles" :key="index" class="list-group-item px-0 mb-2 cursor-pointer" @click.stop="openModal(article)">
                         <div class="d-flex align-items-start">
                             <img v-if="article.image" :src="article.image" alt="Product Image" class="rounded"
                                 style="max-width: 70px;border:1px solid #001600">
@@ -92,14 +90,14 @@
 
                             <div class="ms-3">
                                 <h5 class="mb-0">{{ article.title }}</h5>
-                                <p class="mb-0">{{ article.description }}</p>
+                                <small class="mb-0">{{ article.description }}</small>
                                 <strong style="font-size: 1.25rem" class="ms-auto mb-0">{{ article.price }} kr</strong>
                             </div>
                         </div>
                     </li>
                 </ul>
                 <footer class="footer border-top p-3">
-                    <button type="button" class="btn btn-success rounded-pill w-100" @click="openModal()">
+                    <button type="button" class="btn btn-basic rounded-pill w-100" @click="openModal()">
                         Varukorg <span>({{ cart.length }})</span>
                     </button>
                 </footer>
@@ -142,7 +140,7 @@
                                         <th scope="col">Artikel</th>
                                         <th scope="col">Pris</th>
                                         <th scope="col">Antal</th>
-                                        <th scope="col"></th> <!-- Empty column for remove button -->
+                                        <th scope="col"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -150,7 +148,7 @@
                                         <td>{{ item.id }}</td>
                                         <td>{{ item.title }}</td>
                                         <td>{{ item.price }} kr</td>
-                                        <td>{{ item.amount }}</td>
+                                        <td></td>
                                         <td>
                                             <button @click="removeFromCart(item)" type="button" class="close">
                                                 <i class="bi bi-x-lg"></i>
@@ -177,6 +175,9 @@
                         <div v-else-if="modalView == 'success'" class="text-center">
                             <h3>Tack för din beställning!</h3>
                             <p>En bekräftelse kommer att skickas via SMS.</p>
+                            <button @click.prevent="facebookLogin()" type="button" class="btn btn-basic rounded-pill mt-4 px-3">
+                                <i class="bi bi-facebook me-2"></i>Logga ut
+                            </button>
                         </div>
                     </div>
 
@@ -191,7 +192,7 @@
                             Bekräfta
                         </button>
 
-                        <button v-if="modalView == 'success'" type="button" class="btn btn-success rounded-pill w-100" @click="hideModal">
+                        <button v-if="modalView == 'success'" type="button" class="btn btn-basic rounded-pill w-100" @click="hideModal">
                             Stäng
                         </button>
                     </div>
