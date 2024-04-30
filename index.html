@@ -26,20 +26,25 @@
 
         <!-- A start page -->
         <transition name="fade">
-            <div v-if="currentPage == 'start'" class="d-flex align-items-center justify-content-center splash">
-                <div class="text-center">
-                    <div>
-                        <img src="./ornament2.png" alt="Product Image" class="rounded" style="width:100%;max-width:520px;">
-                    </div>
-                    <a class="bebas-neue-regular" style="line-height:1">Bondens Marknad</a>
+            <div v-if="currentPage == 'start'" class="d-flex flex-column align-items-center justify-content-center splash">
+                <div v-if="loading">
+                    Loading
                 </div>
-                
-                <p class="mb-2 text-center" style="font-size:1.25rem;">Där producenter och konsumenter möts.</p>
-                <small style="text-transform: uppercase;font-weight:300;">www.bondensmarknad.se</small>
-
-                <button @click.prevent="currentPage = 'select'" type="button" class="btn btn-success rounded-pill mt-4 px-3">
-                    Logga in med Facebook
-                </button>
+                <div class="text-center" v-else>
+                    <div>
+                        <div>
+                            <img src="./ornament2.png" alt="Product Image" class="rounded" style="width:100%;max-width:520px;">
+                        </div>
+                        <a class="bebas-neue-regular" style="line-height:1">Bondens Marknad</a>
+                    </div>
+                    
+                    <p class="mb-2 text-center" style="font-size:1.25rem;">Där producenter och konsumenter möts.</p>
+                    <div><small style="text-transform: uppercase;font-weight:300;">www.bondensmarknad.se</small></div>
+    
+                    <button @click.prevent="facebookLogin()" type="button" class="btn btn-success rounded-pill mt-4 px-3">
+                        <i class="bi bi-facebook me-2"></i>Logga in med Facebook
+                    </button>
+                </div>
             </div>
         </transition>
 
@@ -221,6 +226,7 @@
         createApp({
             data() {
                 return {
+                    loading: false,
                     mode: null,
                     theme: 'light',
                     currentPage: 'start',
@@ -312,6 +318,16 @@
                 }
             },
             methods: {
+                facebookLogin() {
+                    console.log('Facebook login')
+
+                    this.loading = true
+                    
+                    setTimeout(() => {
+                        this.currentPage = 'select'
+                        this.loading = false
+                    }, 500)
+                },
                 addToCart(item) {
                     this.cart.push(item) // Add item to the cart array
                     this.myModal.hide()

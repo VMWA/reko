@@ -90,16 +90,6 @@ ul {
     min-height: 100vh; /* Minimum height to fill the screen */
 }
 
-.bi-facebook {
-    font-size: 2rem;
-    color: #1877f2; /* Facebook blue */
-}
-
-.bi-facebook:hover {
-    color: #0f5ea0;
-    cursor: pointer;
-}
-
 .content {
     padding-bottom: 60px; 
 }
