@@ -251,11 +251,6 @@ ul {
     background-color: white;
 }
 
-.search {
-    font-size: 1.125rem;
-    padding: .5rem 1rem;
-}
-
 .market-container {
     height: 100dvh; 
     overflow: hidden;
