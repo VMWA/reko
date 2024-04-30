@@ -30,14 +30,11 @@
                 <div v-if="loading">
                     Loading
                 </div>
-                <div class="text-center" v-else>
-                    <div>
-                        <div>
-                            <img src="./ornament2.png" alt="Product Image" class="rounded" style="width:100%;max-width:520px;">
-                        </div>
-                        <a class="bebas-neue-regular" style="line-height:1">Bondens Marknad</a>
-                    </div>
+                <div v-else class="text-center" >
+                    <img src="./ornament2.png" alt="Product Image" class="rounded mb-3" style="width:100%;max-width:520px;">
                     
+                    <a class="d-block bebas-neue-regular" style="line-height:1">Bondens Marknad</a>
+                
                     <p class="mb-2 text-center" style="font-size:1.25rem;">Där producenter och konsumenter möts.</p>
     
                     <button @click.prevent="facebookLogin()" type="button" class="btn btn-success rounded-pill mt-4 px-3">
