@@ -29,7 +29,7 @@
                 <div v-else class="text-center">
                     <img src="./ornament2.png" alt="Product Image" class="rounded mb-3" style="width:100%;max-width:520px;">
                     
-                    <div class="d-block bebas-neue-regular mb-3" style="line-height:1;font-size:5rem">LOKAL PRODUCERAT</div>
+                    <div class="d-block bebas-neue-regular mb-3" style="line-height:1;font-size:5rem">BONDENS MARKNAD</div>
                 
                     <p class="mb-2 text-center" style="font-size:1.25rem;">Handla direkt från småbönder.</p>
     
@@ -56,31 +56,30 @@
             </transition>
         </div>
 
-        <div class="d-flex market-container flex-column vh-100 p-0" v-if="currentPage == 'buy'" :class="{'dark': this.theme == 'dark'}">
+        <div class="d-flex market-container flex-column vh-100 p-0" v-if="currentPage == 'market'" :class="{'dark': this.theme == 'dark'}">
             <div v-if="selectedMarket">
+
                 <header class="border-bottom">
-                    <nav class="navbar">
-                        <div class="container-fluid">
-                            <a class="navbar-brand" href="#" @click.prevent="selectedMarket = null">
-                                <i class="bi bi-arrow-left me-2"></i>{{ selectedMarket.name }} 24/7
-                            </a>
-                        </div>
+                    <nav class="navbar p-3">
+                        <a class="navbar-link" href="#" @click.prevent="selectedMarket = null">
+                            <i class="bi bi-arrow-left me-2"></i>{{ selectedMarket.name }} 24/7
+                        </a>
                     </nav>
                 </header>
 
-                <div class="p-3">
-                    <ul class="nav nav-tabs mb-3">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Info</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#">Varor</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Producenter</a>
-                        </li>
-                    </ul>
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Info</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Varor</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Producenter</a>
+                    </li>
+                </ul>
 
+                <div class="p-3"> 
                     <form class="mb-3">
                         <div class="input-group">
                             <!-- <div class="input-group-prepend">
@@ -90,7 +89,11 @@
                         </div>
                     </form>
 
-                    <ul class="list-group">
+                    <div v-if="loading" class="d-flex flex-column justify-content-center align-items-center">
+                        <div class="loading"></div>
+                    </div>
+
+                    <ul v-else class="list-group">
                         <li v-for="article, index in articles" :key="index" class="list-group-item px-0 mb-2 cursor-pointer" @click.stop="openModal(article)">
                             <div class="d-flex align-items-start">
                                 <img v-if="article.image" :src="article.image" alt="Product Image" class="rounded" style="max-width: 70px;border:1px solid #001600">
@@ -99,18 +102,12 @@
 
                                 <div class="ms-3">
                                     <h6 class="mb-0">{{ article.title }}</h6>
-                                    <small class="mb-0">{{ article.description }}</small>
-                                    <strong style="font-size: 1.25rem" class="ms-auto mb-0">{{ article.price }} kr</strong>
+                                    <small class="mb-0">{{ article.producer }}</small>
+                                    <strong style="font-size: 1.25rem" class="d-block ms-auto mb-0">{{ article.price }} kr</strong>
                                 </div>
                             </div>
                         </li>
-                    </ul>
-
-                    <footer class="footer border-top p-3">
-                        <button type="button" class="btn btn-basic rounded-pill w-100" @click="openModal()">
-                            <i class="bi bi-cart me-2"></i>Varukorg <span>({{ cart.length }})</span>
-                        </button>
-                    </footer>
+                    </ul>  
                 </div>
             </div>
 
@@ -118,7 +115,7 @@
                 <h1>Välj marknad:</h1>
                 <ul>
                     <li v-for="(market, index) in markets" :key="index">
-                        <a href="" @click.prevent="selectedMarket = market">
+                        <a href="" @click.prevent="goTo('market', market)">
                             <i class="bi bi-geo-alt me-2"></i>{{ market.name }}
                         </a>
                     </li>
@@ -222,6 +219,13 @@
                 </ul>
             </nav>
         </footer> -->
+
+        <footer v-if="currentPage == 'market'" class="footer border-top p-3">
+            <button type="button" class="btn btn-basic rounded-pill w-100" @click="openModal()">
+                <i class="bi bi-cart me-2"></i>Varukorg <span>({{ cart.length }})</span>
+            </button>
+        </footer>
+
     </div>
 
     <!-- Bootstrap JavaScript -->
@@ -242,50 +246,7 @@
                     modalView: 'product',
                     topVisible: true,
                     bottomVisible: true,
-                    articles: [
-                        {
-                            id: 1,
-                            title: "Mandariner",
-                            description: "Fresh organic milk from local farms",
-                            image: "./frukt1.jpg",
-                            price: 49.99
-                        },
-                        {
-                            id: 2,
-                            title: "Nyplockade jordgubbar",
-                            description: "Juicy apples straight from the orchard",
-                            image: "./frukt2.jpg",
-                            price: 29.99
-                        },
-                        {
-                            id: 3,
-                            title: "Surdegslimpa",
-                            description: "Delicious homemade bread baked daily",
-                            image: null,
-                            price: 19.99
-                        },
-                        {
-                            id: 1,
-                            title: "Mandariner",
-                            description: "Fresh organic milk from local farms",
-                            image: "./frukt1.jpg",
-                            price: 49.99
-                        },
-                        {
-                            id: 2,
-                            title: "Nyplockade jordgubbar",
-                            description: "Juicy apples straight from the orchard",
-                            image: "./frukt2.jpg",
-                            price: 29.99
-                        },
-                        {
-                            id: 3,
-                            title: "Surdegslimpa",
-                            description: "Delicious homemade bread baked daily",
-                            image: null,
-                            price: 19.99
-                        }
-                    ],
+                    articles: [],
                     categories: [
                         // Your category data
                     ],
@@ -314,17 +275,77 @@
             },
             computed: {
                 uniqueCategories() {
-                    return [...new Set(this.articles.map(article => article.category))];
+                    return [...new Set(this.articles.map(article => article.category))]
                 },
                 filteredArticles() {
                     if (this.selectedCategories.length === 0) {
-                        return this.articles;
+                        return this.articles
                     } else {
                         return this.articles.filter(article => this.selectedCategories.includes(article.category))
                     }
                 }
             },
             methods: {
+                goTo(route, market) {
+                    if (route == 'market') {
+                        this.fetchArticles()
+                        this.selectedMarket = market
+                        this.currentPage = 'market'
+                    }
+                },
+                fetchArticles() {
+                    this.loading = true
+
+                    setTimeout(() => {
+                        this.articles = [{
+                            id: 1,
+                            title: "Mandariner",
+                            description: "Fresh organic milk from local farms",
+                            producer: "Green Pastures Dairy Co.",
+                            image: "./frukt1.jpg",
+                            price: 49.99
+                        },
+                        {
+                            id: 2,
+                            title: "Nyplockade jordgubbar",
+                            description: "Juicy apples straight from the orchard",
+                            producer: "Sunrise Orchards",
+                            image: "./frukt2.jpg",
+                            price: 29.99
+                        },
+                        {
+                            id: 3,
+                            title: "Surdegslimpa",
+                            description: "Delicious homemade bread baked daily",
+                            producer: "Country Kitchen Bakery",
+                            image: null,
+                            price: 19.99
+                        },
+                        {
+                            id: 4,
+                            title: "Färska ägg",
+                            description: "Farm-fresh eggs from happy chickens",
+                            producer: "Happy Hen Farms",
+                            image: null,
+                            price: 39.99
+                        },
+                        {
+                            id: 2,
+                            title: "Nyplockade jordgubbar",
+                            description: "Juicy apples straight from the orchard",
+                            image: "./frukt2.jpg",
+                            price: 29.99
+                        },
+                        {
+                            id: 3,
+                            title: "Surdegslimpa",
+                            description: "Delicious homemade bread baked daily",
+                            image: null,
+                            price: 19.99
+                        }]
+                        this.loading = false
+                    }, 1500)
+                },
                 facebookLogin() {
                     console.log('Facebook login')
 
@@ -362,7 +383,7 @@
                     this.bottomVisible = false
 
                     setTimeout(() => {
-                        this.currentPage = 'buy'
+                        this.currentPage = 'market'
                     }, 500)
                 },
                 handleClickBottom() {
@@ -371,14 +392,14 @@
                     this.bottomVisible = false
 
                     setTimeout(() => {
-                        this.currentPage = 'sell'
+                        this.currentPage = 'market'
                     }, 500)
                 },
                 openModal(item) {
                     this.modalView = 'cart'
 
                     if (item) {
-                        this.modalView = 'product'
+                        this.modalView = 'market'
                         this.selectedItem = item
                     }
 

@@ -71,6 +71,10 @@ ul {
     background-color: transparent;
 }
 
+.list-group-item:last-child {
+    border-bottom: 0;
+}
+
 .cursor-pointer {
     cursor: pointer;
 }
@@ -114,6 +118,8 @@ ul {
 
 .nav-link.active {
     background-color: transparent !important;
+    border: 0;
+    border-bottom: 2px solid #001600 !important;
 }
 
 .breadcrumb .breadcrumb-item a {
