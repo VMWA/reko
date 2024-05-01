@@ -96,14 +96,14 @@
                     <ul v-else class="list-group">
                         <li v-for="article, index in articles" :key="index" class="list-group-item px-0 mb-2 cursor-pointer" @click.stop="openModal(article)">
                             <div class="d-flex align-items-start">
-                                <img v-if="article.image" :src="article.image" alt="Product Image" class="rounded" style="max-width: 70px;border:1px solid #001600">
-
-                                <div v-else class="bg-light rounded" style="height:70px;width:70px"></div>
+                                <div class="img-wrapper bg-light rounded">
+                                    <img v-if="article.image" :src="article.image" alt="Product Image" class="rounded">
+                                </div>
 
                                 <div class="ms-3">
                                     <h6 class="mb-0">{{ article.title }}</h6>
                                     <small class="mb-0">{{ article.producer }}</small>
-                                    <strong style="font-size: 1.25rem" class="d-block ms-auto mb-0">{{ article.price }} kr</strong>
+                                    <div style="font-size: 1rem; font-weight: 500" class="d-block ms-auto mb-0">{{ article.price }} kr</div>
                                 </div>
                             </div>
                         </li>
