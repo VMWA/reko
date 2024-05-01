@@ -173,7 +173,7 @@ ul {
     left: 0;
     width: 100%;
     text-align: center;
-    background-color: #fcfff0;
+    background-color: inherit;
 }
 
 .menu ul {
@@ -200,38 +200,44 @@ ul {
     font-size: 1.25rem; /* Set icon size */
 }
 
+.overlay {
+    z-index: 1;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Adjust opacity as needed */
+    opacity: 0;
+    pointer-events: none; /* Ensure clicks don't pass through when hidden */
+    transition: opacity 0.5s ease-in-out;
+}
+
+.overlay.show {
+    opacity: 1;
+    pointer-events: auto; /* Allow clicks when visible */
+}
+
+.slide-div {
+    z-index: 2;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 80vh; /* 80% of the viewport height */
+    background-color: #fff; /* Adjust background color as needed */
+    overflow-y: auto; /* Allow scrolling if content exceeds the div's height */
+    transform: translateY(100%);
+    transition: transform 0.5s ease-in-out;
+}
+
+.slide-div.show {
+    transform: translateY(0);
+}
+
 .modal-header button {
     padding: 0;
     font-size: 1.25rem;
-}
-
-/* Custom styles for bottom-sliding modal */
-.modal.bottom-slide-modal .modal-dialog {
-    position: fixed;
-    bottom: -100%; /* Initially hides the modal off-screen */
-    left: 0;
-    right: 0;
-    margin: auto;
-    width: 100%;
-    max-width: 600px; /* Adjust the maximum width as needed */
-    transition: bottom 0.3s ease-in-out; /* Smooth transition for sliding effect */
-}
-
-/* Set height for modal content */
-.modal.bottom-slide-modal .modal-content {
-    height: 80vh; /* Set the height to 70% of the viewport height */
-    overflow-y: auto; /* Enable vertical scrolling if content exceeds modal height */
-}
-
-/* Show the modal by sliding it up from the bottom */
-.modal.bottom-slide-modal.show .modal-dialog {
-    bottom: 0;
-}
-
-/* Hide the modal by sliding it down */
-.modal.bottom-slide-modal.hide .modal-dialog {
-    bottom: -100%;
-    transition-delay: 0.3s;
 }
 
 .modal-content {
@@ -263,15 +269,6 @@ ul {
 .image-container img {
     width: 100%;
     height: auto;
-}
-
-.overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(0, 0, 0, 1));
 }
 
 .text-top {
@@ -354,9 +351,9 @@ ul {
 .slide-down-enter-active, .slide-down-leave-active {
     transition: transform 0.5s;
 }
-
+  
 .slide-down-enter, .slide-down-leave-to {
-    transform: translateY(100%);
+    transform: translateY(100%); /* Reverse the direction for slide-down */
 }
 
 /* CSS for list items transition */
@@ -367,3 +364,4 @@ ul {
 .list-item-enter {
     opacity: 0;
 }
+

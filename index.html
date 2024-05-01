@@ -133,87 +133,88 @@
             <h1>Välj marknad:</h1>
         </div>
 
-        <!-- Modal for adding a new article -->
-        <div class="modal bottom-slide-modal fade" id="myModal" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog rounded-top">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 v-if="modalView == 'cart'" class="modal-title">Varukorg</h5>
-                        <h5 v-else-if="modalView == 'product'" class="modal-title">Produktinformation</h5>
-                        <h5 v-else-if="modalView == 'finish'" class="modal-title">Slutför</h5>
-                        <button type="button" class="ms-auto btn" @click="hideModal()" aria-label="Close">
-                            <i class="bi bi-chevron-down"></i>
-                        </button>
+        <div class="overlay" :class="{'show': showSlideDiv}"></div>
+        
+        <!-- Slide div -->
+        <div class="slide-div rounded-top" :class="{'show': showSlideDiv}">
+            <div class="content p-3">
+                <div class="">
+                    <h5 v-if="modalView == 'cart'" class="modal-title">Varukorg</h5>
+                    <h5 v-else-if="modalView == 'product'" class="modal-title">Produktinformation</h5>
+                    <h5 v-else-if="modalView == 'finish'" class="modal-title">Slutför</h5>
+                    <button type="button" class="ms-auto btn" @click="hideModal()" aria-label="Close">
+                        <i class="bi bi-chevron-down"></i>
+                    </button>
+                </div>
+                <div class="p-4">
+                    <div v-if="modalView == 'cart'">
+                        <table v-if="cart.length" class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Art. Nr</th>
+                                    <th scope="col">Artikel</th>
+                                    <th scope="col">Pris</th>
+                                    <th scope="col">Antal</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="item in cart" :key="item.id">
+                                    <td>{{ item.id }}</td>
+                                    <td>{{ item.title }}</td>
+                                    <td>{{ item.price }} kr</td>
+                                    <td></td>
+                                    <td>
+                                        <button @click="removeFromCart(item)" type="button" class="close">
+                                            <i class="bi bi-x-lg"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                    <div class="modal-body p-4">
-                        <div v-if="modalView == 'cart'">
-                            <table v-if="cart.length" class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Art. Nr</th>
-                                        <th scope="col">Artikel</th>
-                                        <th scope="col">Pris</th>
-                                        <th scope="col">Antal</th>
-                                        <th scope="col"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for="item in cart" :key="item.id">
-                                        <td>{{ item.id }}</td>
-                                        <td>{{ item.title }}</td>
-                                        <td>{{ item.price }} kr</td>
-                                        <td></td>
-                                        <td>
-                                            <button @click="removeFromCart(item)" type="button" class="close">
-                                                <i class="bi bi-x-lg"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div v-else-if="modalView == 'product'">
-                            <div v-if="selectedItem">
-                                <img class="mb-3" :src="selectedItem.image" :alt="selectedItem.title">
-                                <h5>{{ selectedItem.title }}</h5>
-                                <div class="mb-3">{{ selectedItem.description }}</div>
-                                <h2>{{ selectedItem.price }} kr</h2>
-                            </div>
-                        </div>
-
-                        <div v-else-if="modalView == 'finish'" class="text-center">
-                            <h3>Ange ditt telefonnummer:</h3>
-                            <input type="text" class="form-control rounded-pill" placeholder="Telefonnummer">   
-                        </div>
-
-                        <div v-else-if="modalView == 'success'" class="text-center">
-                            <h3>Tack för din beställning!</h3>
-                            <p>En bekräftelse kommer att skickas via SMS.</p>
-                            <button @click.prevent="facebookLogout()" type="button" class="btn btn-basic rounded-pill mt-4 px-3">
-                                Logga ut
-                            </button>
+                    <div v-else-if="modalView == 'product'">
+                        <div v-if="selectedItem">
+                            <img class="mb-3" :src="selectedItem.image" :alt="selectedItem.title">
+                            <h5>{{ selectedItem.title }}</h5>
+                            <div class="mb-3">{{ selectedItem.description }}</div>
+                            <h2>{{ selectedItem.price }} kr</h2>
                         </div>
                     </div>
 
-                    <div class="modal-footer">
-                        <button v-if="modalView == 'cart'" :disabled="!cart.length" type="button" class="btn btn-basic rounded-pill w-100" @click="confirmOrder">Skicka beställning</button>
-             
-                        <button v-if="modalView == 'product'" type="button" class="btn btn-basic rounded-pill w-100" @click="addToCart(selectedItem)" >
-                            <i class="bi bi-plus-lg me-2"></i>Lägg i varukorg
-                        </button>
-
-                        <button v-if="modalView == 'finish'" type="button" class="btn btn-basic rounded-pill w-100" @click="submitOrder">
-                            Bekräfta
-                        </button>
-
-                        <button v-if="modalView == 'success'" type="button" class="btn btn-basic rounded-pill w-100" @click="hideModal">
-                            Stäng
-                        </button>
+                    <div v-else-if="modalView == 'finish'" class="text-center">
+                        <h3>Ange ditt telefonnummer:</h3>
+                        <input type="text" class="form-control rounded-pill" placeholder="Telefonnummer">   
                     </div>
 
+                    <div v-else-if="modalView == 'success'" class="text-center">
+                        <h3>Tack för din beställning!</h3>
+                        <p>En bekräftelse kommer att skickas via SMS.</p>
+                        <button @click.prevent="facebookLogout()" type="button" class="btn btn-basic rounded-pill mt-4 px-3">
+                            Logga ut
+                        </button>
+                    </div>
+                </div>
+
+                <div class="footer border-top p-3">
+                    <button v-if="modalView == 'cart'" :disabled="!cart.length" type="button" class="btn btn-basic rounded-pill w-100" @click="confirmOrder">Skicka beställning</button>
+            
+                    <button v-if="modalView == 'product'" type="button" class="btn btn-basic rounded-pill w-100" @click="addToCart(selectedItem)" >
+                        <i class="bi bi-plus-lg me-2"></i>Lägg i varukorg
+                    </button>
+
+                    <button v-if="modalView == 'finish'" type="button" class="btn btn-basic rounded-pill w-100" @click="submitOrder">
+                        Bekräfta
+                    </button>
+
+                    <button v-if="modalView == 'success'" type="button" class="btn btn-basic rounded-pill w-100" @click="hideModal">
+                        Stäng
+                    </button>
                 </div>
             </div>
         </div>
+   
+        
 
         <!-- <footer class="d-none footer border-top">
             <nav class="menu p-2">
@@ -247,6 +248,7 @@
                     mode: null,
                     theme: 'light',
                     currentPage: 'start',
+                    showSlideDiv: false,
                     selectedMarket: null,
                     cart: [],
                     modalView: 'product',
@@ -277,7 +279,7 @@
             },
             mounted() {
                 // Open the modal for adding a new article
-                this.myModal = new bootstrap.Modal(document.getElementById('myModal'))
+                // this.myModal = new bootstrap.Modal(document.getElementById('myModal'))
             },
             computed: {
                 uniqueCategories() {
@@ -294,65 +296,64 @@
             methods: {
                 goTo(route, market) {
                     if (route == 'market') {
-                        this.fetchArticles()
+                        this.loading = true
                         this.selectedMarket = market
                         this.currentPage = 'market'
+
+                        setTimeout(() => {
+                            this.fetchArticles()
+                            this.loading = false
+                        }, 1500)
                     }
                 },
                 fetchArticles() {
-                    this.loading = true
+                    const newArticles = [
+                        {
+                            id: 1,
+                            title: "Mandariner",
+                            description: "Fresh organic milk from local farms",
+                            producer: "Green Pastures Dairy Co.",
+                            image: "./frukt1.jpg",
+                            price: 49.99
+                        },
+                        {
+                            id: 2,
+                            title: "Nyplockade jordgubbar",
+                            description: "Juicy apples straight from the orchard",
+                            producer: "Sunrise Orchards",
+                            image: "./frukt2.jpg",
+                            price: 29.99
+                        },
+                        {
+                            id: 3,
+                            title: "Surdegslimpa",
+                            description: "Delicious homemade bread baked daily",
+                            producer: "Country Kitchen Bakery",
+                            image: null,
+                            price: 19.99
+                        },
+                        {
+                            id: 4,
+                            title: "Färska ägg",
+                            description: "Farm-fresh eggs from happy chickens",
+                            producer: "Happy Hen Farms",
+                            image: null,
+                            price: 39.99
+                        },
+                    ]
 
-                    setTimeout(() => {
-                        const newArticles = [
-                            {
-                                id: 1,
-                                title: "Mandariner",
-                                description: "Fresh organic milk from local farms",
-                                producer: "Green Pastures Dairy Co.",
-                                image: "./frukt1.jpg",
-                                price: 49.99
-                            },
-                            {
-                                id: 2,
-                                title: "Nyplockade jordgubbar",
-                                description: "Juicy apples straight from the orchard",
-                                producer: "Sunrise Orchards",
-                                image: "./frukt2.jpg",
-                                price: 29.99
-                            },
-                            {
-                                id: 3,
-                                title: "Surdegslimpa",
-                                description: "Delicious homemade bread baked daily",
-                                producer: "Country Kitchen Bakery",
-                                image: null,
-                                price: 19.99
-                            },
-                            {
-                                id: 4,
-                                title: "Färska ägg",
-                                description: "Farm-fresh eggs from happy chickens",
-                                producer: "Happy Hen Farms",
-                                image: null,
-                                price: 39.99
-                            },
-                        ]
+                    // Add each article with a delay
+                    newArticles.forEach((article, index) => {
+                        setTimeout(() => {
+                            this.articles.push(article)
 
-                        // Add each article with a delay
-                        newArticles.forEach((article, index) => {
-                            setTimeout(() => {
-                                this.articles.push(article)
-                                // Add the 'show' class to trigger the CSS transition
-                                this.$nextTick(() => {
-                                    this.$refs[`article-${article.id}`][0].classList.add('show')
-                                })
+                            // Add the 'show' class to trigger the CSS transition
+                            this.$nextTick(() => {
+                                this.$refs[`article-${article.id}`][0].classList.add('show')
+                            })
 
-                            }, index * 100)
-                        });
-
-                        this.loading = false
-
-                    }, 1500)
+                        }, index * 100)
+                    })
                 },
                 facebookLogin() {
                     console.log('Facebook login')
@@ -376,7 +377,7 @@
                 },
                 addToCart(item) {
                     this.cart.push(item) // Add item to the cart array
-                    this.myModal.hide()
+                    this.showSlideDiv = true
                 },
                 removeFromCart(item) {
                     const index = this.cart.findIndex(cartItem => cartItem.id === item.id)
@@ -411,10 +412,10 @@
                         this.selectedItem = item
                     }
 
-                    this.myModal.show()
+                    this.showSlideDiv = true
                 },
                 hideModal() {
-                    this.myModal.hide()
+                    this.showSlideDiv = false
                 },
                 addItem() {
                     // Add the new article to the list
@@ -426,7 +427,7 @@
                         image: this.newItem.image
                     });
 
-                    this.myModal.hide()
+                    this.showSlideDiv = false
                 },
                 confirmOrder() { 
                     if (confirm("Är du säker på att du vill beställa?")) {
