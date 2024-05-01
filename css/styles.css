@@ -64,11 +64,22 @@ ul {
     margin: 0;
 }
 
+.list-group {
+    /* Set overflow to hidden to hide items initially */
+    overflow: hidden;
+}
+
 .list-group-item {
     border: none;
     border-radius: 0;
     border-bottom: 1px solid #ededed;
     background-color: transparent;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.list-group-item.show {
+    opacity: 1;
 }
 
 .list-group-item .img-wrapper {

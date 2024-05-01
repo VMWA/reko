@@ -93,13 +93,19 @@
                         <div class="loading"></div>
                     </div>
 
+                    <!-- Article list -->
                     <ul v-else class="list-group">
-                        <li v-for="article, index in articles" :key="index" class="list-group-item px-0 mb-2 cursor-pointer" @click.stop="openModal(article)">
+                        <li 
+                            v-for="article in articles" 
+                            :key="article.id" 
+                            class="list-group-item px-0 mb-2 cursor-pointer"
+                            @click.stop="openModal(article)"
+                            :ref="`article-${article.id}`"
+                        >
                             <div class="d-flex align-items-start">
                                 <div class="img-wrapper bg-light rounded">
                                     <img v-if="article.image" :src="article.image" alt="Product Image" class="rounded">
                                 </div>
-
                                 <div class="ms-3">
                                     <h6 class="mb-0">{{ article.title }}</h6>
                                     <small class="mb-0">{{ article.producer }}</small>
@@ -107,7 +113,7 @@
                                 </div>
                             </div>
                         </li>
-                    </ul>  
+                    </ul>
                 </div>
             </div>
 
@@ -297,53 +303,55 @@
                     this.loading = true
 
                     setTimeout(() => {
-                        this.articles = [{
-                            id: 1,
-                            title: "Mandariner",
-                            description: "Fresh organic milk from local farms",
-                            producer: "Green Pastures Dairy Co.",
-                            image: "./frukt1.jpg",
-                            price: 49.99
-                        },
-                        {
-                            id: 2,
-                            title: "Nyplockade jordgubbar",
-                            description: "Juicy apples straight from the orchard",
-                            producer: "Sunrise Orchards",
-                            image: "./frukt2.jpg",
-                            price: 29.99
-                        },
-                        {
-                            id: 3,
-                            title: "Surdegslimpa",
-                            description: "Delicious homemade bread baked daily",
-                            producer: "Country Kitchen Bakery",
-                            image: null,
-                            price: 19.99
-                        },
-                        {
-                            id: 4,
-                            title: "Färska ägg",
-                            description: "Farm-fresh eggs from happy chickens",
-                            producer: "Happy Hen Farms",
-                            image: null,
-                            price: 39.99
-                        },
-                        {
-                            id: 2,
-                            title: "Nyplockade jordgubbar",
-                            description: "Juicy apples straight from the orchard",
-                            image: "./frukt2.jpg",
-                            price: 29.99
-                        },
-                        {
-                            id: 3,
-                            title: "Surdegslimpa",
-                            description: "Delicious homemade bread baked daily",
-                            image: null,
-                            price: 19.99
-                        }]
+                        const newArticles = [
+                            {
+                                id: 1,
+                                title: "Mandariner",
+                                description: "Fresh organic milk from local farms",
+                                producer: "Green Pastures Dairy Co.",
+                                image: "./frukt1.jpg",
+                                price: 49.99
+                            },
+                            {
+                                id: 2,
+                                title: "Nyplockade jordgubbar",
+                                description: "Juicy apples straight from the orchard",
+                                producer: "Sunrise Orchards",
+                                image: "./frukt2.jpg",
+                                price: 29.99
+                            },
+                            {
+                                id: 3,
+                                title: "Surdegslimpa",
+                                description: "Delicious homemade bread baked daily",
+                                producer: "Country Kitchen Bakery",
+                                image: null,
+                                price: 19.99
+                            },
+                            {
+                                id: 4,
+                                title: "Färska ägg",
+                                description: "Farm-fresh eggs from happy chickens",
+                                producer: "Happy Hen Farms",
+                                image: null,
+                                price: 39.99
+                            },
+                        ]
+
+                        // Add each article with a delay
+                        newArticles.forEach((article, index) => {
+                            setTimeout(() => {
+                                this.articles.push(article)
+                                // Add the 'show' class to trigger the CSS transition
+                                this.$nextTick(() => {
+                                    this.$refs[`article-${article.id}`][0].classList.add('show')
+                                })
+
+                            }, index * 100)
+                        });
+
                         this.loading = false
+
                     }, 1500)
                 },
                 facebookLogin() {
