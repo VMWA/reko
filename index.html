@@ -27,9 +27,9 @@
                 <div v-if="loading" class="loading"></div>
 
                 <div v-else class="text-center">
-                    <img src="./ornament2.png" alt="Product Image" class="rounded mb-3" style="width:100%;max-width:520px;">
+                    <img src="./ornament2.png" alt="Product Image" class="rounded mb-3" style="width:100%;max-width:460px;">
                     
-                    <div class="d-block bebas-neue-regular mb-3" style="line-height:1;font-size:5rem">BONDENS MARKNAD</div>
+                    <div class="d-block bebas-neue-regular mb-3" style="line-height:1;font-size:3.5rem">LANTMARKNAD.se</div>
                 
                     <p class="mb-2 text-center" style="font-size:1.25rem;">Handla direkt från småbönder.</p>
     
@@ -79,8 +79,8 @@
                     </li>
                 </ul>
 
-                <div class="p-3"> 
-                    <form class="mb-3">
+                <div class="search-container p-3">
+                    <form>
                         <div class="input-group">
                             <!-- <div class="input-group-prepend">
                                     <button class="btn btn-outline-secondary" type="button"><i class="bi bi-search"></i></button>
@@ -88,7 +88,10 @@
                             <input type="text" class="form-control rounded-pill px-3" placeholder="Sök vara">
                         </div>
                     </form>
+                </div>
+                
 
+                <div class="p-3 pt-0"> 
                     <div v-if="loading" class="d-flex flex-column justify-content-center align-items-center">
                         <div class="loading"></div>
                     </div>
@@ -196,7 +199,7 @@
                     </div>
                 </div>
 
-                <div class="footer border-top p-3">
+                <div class="footer p-3">
                     <button v-if="modalView == 'cart'" :disabled="!cart.length" type="button" class="btn btn-basic rounded-pill w-100" @click="confirmOrder">Skicka beställning</button>
             
                     <button v-if="modalView == 'product'" type="button" class="btn btn-basic rounded-pill w-100" @click="addToCart(selectedItem)" >
@@ -227,7 +230,7 @@
             </nav>
         </footer> -->
 
-        <footer v-if="currentPage == 'market'" class="footer border-top p-3">
+        <footer v-if="currentPage == 'market'" class="footer p-3">
             <button type="button" class="btn btn-basic rounded-pill w-100" @click="openModal()">
                 <i class="bi bi-cart me-2"></i>Varukorg <span>({{ cart.length }})</span>
             </button>
@@ -334,6 +337,38 @@
                         },
                         {
                             id: 4,
+                            title: "Färska ägg",
+                            description: "Farm-fresh eggs from happy chickens",
+                            producer: "Happy Hen Farms",
+                            image: null,
+                            price: 39.99
+                        },
+                        {
+                            id: 5,
+                            title: "Mandariner",
+                            description: "Fresh organic milk from local farms",
+                            producer: "Green Pastures Dairy Co.",
+                            image: "./frukt1.jpg",
+                            price: 49.99
+                        },
+                        {
+                            id: 6,
+                            title: "Nyplockade jordgubbar",
+                            description: "Juicy apples straight from the orchard",
+                            producer: "Sunrise Orchards",
+                            image: "./frukt2.jpg",
+                            price: 29.99
+                        },
+                        {
+                            id: 7,
+                            title: "Surdegslimpa",
+                            description: "Delicious homemade bread baked daily",
+                            producer: "Country Kitchen Bakery",
+                            image: null,
+                            price: 19.99
+                        },
+                        {
+                            id: 8,
                             title: "Färska ägg",
                             description: "Farm-fresh eggs from happy chickens",
                             producer: "Happy Hen Farms",

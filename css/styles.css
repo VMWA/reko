@@ -293,7 +293,11 @@ ul {
 
 .market-container {
     height: 100dvh; 
-    overflow: hidden;
+    overflow: auto;
+}
+
+.search-container {
+    position: sticky;
 }
 
 .splash {
