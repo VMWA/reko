@@ -12,8 +12,8 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    border: 4px solid #001600;
-    border-top-color: #fcfff0;
+    border: 4px solid #2B3926;
+    border-top-color: #fefef1;
     animation: spin 1s ease-in-out infinite;
 }
 
@@ -27,8 +27,8 @@
 }
 
 body {
-    color: #001600;
-    background-color: #fcfff0;
+    color: #2B3926;
+    background-color: #fefef1;
     font-family: "Roboto", sans-serif;
 }
 
@@ -43,17 +43,17 @@ a {
 }
 
 a:hover {
-    color: #001600;
+    color: #2B3926;
 }
 
 .btn-basic {
-    background-color: #001600;
-    color: #fcfff0;
-    border-color: #001600;
+    background-color: #2B3926;
+    color: #fefef1;
+    border-color: #2B3926;
 }
 
 .btn-basic:disabled {
-    border-color: #001600;
+    border-color: #2B3926;
     background-color: transparent;
     cursor: not-allowed;
 }
@@ -103,7 +103,7 @@ ul {
 .list-group-item img {
     width: 100%;
     height: 100%;
-    border: 1px solid #001600;
+    border: 1px solid #2B3926;
 }
 
 .cursor-pointer {
@@ -144,13 +144,13 @@ ul {
 }
 
 .nav-item a {
-    color: #001600;
+    color: #2B3926;
 }
 
 .nav-link.active {
     background-color: transparent !important;
     border: 0;
-    border-bottom: 2px solid #001600 !important;
+    border-bottom: 2px solid #2B3926 !important;
 }
 
 .breadcrumb .breadcrumb-item a {
@@ -256,7 +256,7 @@ ul {
 }
 
 .form-control:focus {
-    border-color: #001600;
+    border-color: #2B3926;
     box-shadow: 0 0 0 0.25rem rgb(13 225 253 / 25%);
 }
 
@@ -305,7 +305,7 @@ ul {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #fcfff0;
+    background-color: #fefef1;
     position: absolute;
     top: 0;
     right: 0;
@@ -319,7 +319,7 @@ ul {
 .splash a {
     text-decoration: none;
     cursor: pointer;
-    color: #001600;
+    color: #2B3926;
     font-size: 5rem;
 }
 
@@ -328,13 +328,13 @@ ul {
 }
 
 .light {
-    background-color: #fcfff0;
-    color: #001600;
+    background-color: #fefef1;
+    color: #2B3926;
 }
 
 .dark {
-    background-color: #001600;
-    color: #fcfff0;
+    background-color: #2B3926;
+    color: #fefef1;
 }
 
 .fade-leave-active {
