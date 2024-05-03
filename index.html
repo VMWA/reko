@@ -67,7 +67,7 @@
                     </nav>
                 </header>
 
-                <ul class="nav nav-tabs">
+                <ul class="nav border-bottom">
                     <li class="nav-item">
                         <a class="nav-link" href="#">Info</a>
                     </li>
@@ -101,12 +101,12 @@
                         <li 
                             v-for="article in articles" 
                             :key="article.id" 
-                            class="list-group-item px-0 mb-2 cursor-pointer"
+                            class="list-group-item px-0 cursor-pointer"
                             @click.stop="openModal(article)"
                             :ref="`article-${article.id}`"
                         >
                             <div class="d-flex align-items-start">
-                                <div class="img-wrapper bg-light rounded">
+                                <div class="img-wrapper bg-white rounded">
                                     <img v-if="article.image" :src="article.image" alt="Product Image" class="rounded">
                                 </div>
                                 <div class="ms-3">
@@ -136,7 +136,7 @@
             <h1>Välj marknad:</h1>
         </div>
 
-        <div class="overlay" :class="{'show': showSlideDiv}"></div>
+        <div class="overlay" :class="{'show': showSlideDiv}" @click="showSlideDiv = false"></div>
         
         <!-- Slide div -->
         <div class="slide-div rounded-top" :class="{'show': showSlideDiv}">
@@ -412,6 +412,7 @@
                 },
                 addToCart(item) {
                     this.cart.push(item) // Add item to the cart array
+                    this.modalView = cart
                     this.showSlideDiv = true
                 },
                 removeFromCart(item) {
