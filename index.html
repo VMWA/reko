@@ -140,8 +140,8 @@
         
         <!-- Slide div -->
         <div class="slide-div rounded-top" :class="{'show': showSlideDiv}">
-            <div class="content p-3">
-                <div class="">
+            <div class="content p-4">
+                <div class="d-flex">
                     <h5 v-if="modalView == 'cart'" class="modal-title">Varukorg</h5>
                     <h5 v-else-if="modalView == 'product'" class="modal-title">Produktinformation</h5>
                     <h5 v-else-if="modalView == 'finish'" class="modal-title">Slutför</h5>
@@ -149,55 +149,55 @@
                         <i class="bi bi-chevron-down"></i>
                     </button>
                 </div>
-                <div class="p-4">
-                    <div v-if="modalView == 'cart'">
-                        <table v-if="cart.length" class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Art. Nr</th>
-                                    <th scope="col">Artikel</th>
-                                    <th scope="col">Pris</th>
-                                    <th scope="col">Antal</th>
-                                    <th scope="col"></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="item in cart" :key="item.id">
-                                    <td>{{ item.id }}</td>
-                                    <td>{{ item.title }}</td>
-                                    <td>{{ item.price }} kr</td>
-                                    <td></td>
-                                    <td>
-                                        <button @click="removeFromCart(item)" type="button" class="close">
-                                            <i class="bi bi-x-lg"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div v-else-if="modalView == 'product'">
-                        <div v-if="selectedItem">
-                            <img class="mb-3" :src="selectedItem.image" :alt="selectedItem.title">
-                            <h5>{{ selectedItem.title }}</h5>
-                            <div class="mb-3">{{ selectedItem.description }}</div>
-                            <h2>{{ selectedItem.price }} kr</h2>
-                        </div>
-                    </div>
-
-                    <div v-else-if="modalView == 'finish'" class="text-center">
-                        <h3>Ange ditt telefonnummer:</h3>
-                        <input type="text" class="form-control rounded-pill" placeholder="Telefonnummer">   
-                    </div>
-
-                    <div v-else-if="modalView == 'success'" class="text-center">
-                        <h3>Tack för din beställning!</h3>
-                        <p>En bekräftelse kommer att skickas via SMS.</p>
-                        <button @click.prevent="facebookLogout()" type="button" class="btn btn-basic rounded-pill mt-4 px-3">
-                            Logga ut
-                        </button>
+               
+                <div v-if="modalView == 'cart'">
+                    <table v-if="cart.length" class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Art. Nr</th>
+                                <th scope="col">Artikel</th>
+                                <th scope="col">Pris</th>
+                                <th scope="col">Antal</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="item in cart" :key="item.id">
+                                <td>{{ item.id }}</td>
+                                <td>{{ item.title }}</td>
+                                <td>{{ item.price }} kr</td>
+                                <td></td>
+                                <td>
+                                    <button @click="removeFromCart(item)" type="button" class="close">
+                                        <i class="bi bi-x-lg"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div v-else-if="modalView == 'product'">
+                    <div v-if="selectedItem">
+                        <img class="mb-3" :src="selectedItem.image" :alt="selectedItem.title">
+                        <h5>{{ selectedItem.title }}</h5>
+                        <div class="mb-3">{{ selectedItem.description }}</div>
+                        <h2>{{ selectedItem.price }} kr</h2>
                     </div>
                 </div>
+
+                <div v-else-if="modalView == 'finish'" class="text-center">
+                    <h3>Ange ditt telefonnummer:</h3>
+                    <input type="text" class="form-control rounded-pill" placeholder="Telefonnummer">   
+                </div>
+
+                <div v-else-if="modalView == 'success'" class="text-center">
+                    <h3>Tack för din beställning!</h3>
+                    <p>En bekräftelse kommer att skickas via SMS.</p>
+                    <button @click.prevent="facebookLogout()" type="button" class="btn btn-basic rounded-pill mt-4 px-3">
+                        Logga ut
+                    </button>
+                </div>
+                
 
                 <div class="footer p-3">
                     <button v-if="modalView == 'cart'" :disabled="!cart.length" type="button" class="btn btn-basic rounded-pill w-100" @click="confirmOrder">Skicka beställning</button>
@@ -412,7 +412,7 @@
                 },
                 addToCart(item) {
                     this.cart.push(item) // Add item to the cart array
-                    this.modalView = cart
+                    this.modalView = 'cart'
                     this.showSlideDiv = true
                 },
                 removeFromCart(item) {
@@ -444,8 +444,8 @@
                     this.modalView = 'cart'
 
                     if (item) {
-                        this.modalView = 'market'
                         this.selectedItem = item
+                        this.modalView = 'product'
                     }
 
                     this.showSlideDiv = true
