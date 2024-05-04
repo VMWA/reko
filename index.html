@@ -61,7 +61,7 @@
 
                 <header class="border-bottom">
                     <nav class="navbar p-3">
-                        <a class="navbar-link" href="#" @click.prevent="selectedMarket = null">
+                        <a class="navbar-link" href="#" @click.prevent="currentPage = 'select-market'">
                             <i class="bi bi-arrow-left me-2"></i>{{ selectedMarket.name }} 24/7
                         </a>
                     </nav>
@@ -102,7 +102,7 @@
                             v-for="article in articles" 
                             :key="article.id" 
                             class="list-group-item px-0 cursor-pointer"
-                            @click.stop="openModal(article)"
+                            @click.stop="openModal('article', article)"
                             :ref="`article-${article.id}`"
                         >
                             <div class="d-flex align-items-start">
@@ -119,14 +119,22 @@
                     </ul>
                 </div>
             </div>
+        </div>
 
-            <div class="p-3" v-else>
+        <div class="d-flex market-container flex-column vh-100 p-0" v-if="currentPage == 'select-market'" :class="{'dark': this.theme == 'dark'}">
+            <div class="p-3">
                 <h1>Välj marknad:</h1>
-                <ul>
-                    <li v-for="(market, index) in markets" :key="index">
-                        <a href="" @click.prevent="goTo('market', market)">
-                            <i class="bi bi-geo-alt me-2"></i>{{ market.name }}
-                        </a>
+                <ul class="list-group">
+                    <li v-for="(market, index) in markets" :key="market" class="list-group-item px-0 show">
+                        <div class="justify-content-between align-items-center">
+                            <a href="" class="d-flex" @click.prevent="goTo('market', market)">
+                                <i class="bi bi-geo-alt me-2"></i>
+                                <div>
+                                    <span>{{ market.name }}</span><br>
+                                    <small>Storgatan 3, Karlstad</small>
+                                </div>
+                            </a>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -139,18 +147,18 @@
         <div class="overlay" :class="{'show': showSlideDiv}" @click="showSlideDiv = false"></div>
         
         <!-- Slide div -->
-        <div class="slide-div rounded-top" :class="{'show': showSlideDiv}">
-            <div class="content p-4">
-                <div class="d-flex">
-                    <h5 v-if="modalView == 'cart'" class="modal-title">Varukorg</h5>
-                    <h5 v-else-if="modalView == 'product'" class="modal-title">Produktinformation</h5>
-                    <h5 v-else-if="modalView == 'finish'" class="modal-title">Slutför</h5>
-                    <button type="button" class="ms-auto btn" @click="hideModal()" aria-label="Close">
+        <div class="slide-div rounded-top" :class="{'show': showSlideDiv, 'map': modalView == 'map'}">
+            <div class="content">
+                <div class="d-flex p-3">
+                    <h1 v-if="modalView == 'cart'" class="modal-title">Varukorg</h1>
+                    <h1 v-else-if="modalView == 'product'" class="modal-title">Produktinformation</h1>
+                    <h1 v-else-if="modalView == 'finish'" class="modal-title">Slutför</h1>
+                    <a type="button" class="ms-auto" @click="hideModal()">
                         <i class="bi bi-chevron-down"></i>
-                    </button>
+                    </a>
                 </div>
                
-                <div v-if="modalView == 'cart'">
+                <div class="p-4" v-if="modalView == 'cart'">
                     <table v-if="cart.length" class="table">
                         <thead>
                             <tr>
@@ -176,7 +184,8 @@
                         </tbody>
                     </table>
                 </div>
-                <div v-else-if="modalView == 'product'">
+
+                <div class="p-4" v-else-if="modalView == 'article'">
                     <div v-if="selectedItem">
                         <img class="mb-3" :src="selectedItem.image" :alt="selectedItem.title">
                         <h5>{{ selectedItem.title }}</h5>
@@ -185,24 +194,27 @@
                     </div>
                 </div>
 
-                <div v-else-if="modalView == 'finish'" class="text-center">
+                <div v-else-if="modalView == 'finish'" class="p-4 text-center">
                     <h3>Ange ditt telefonnummer:</h3>
                     <input type="text" class="form-control rounded-pill" placeholder="Telefonnummer">   
                 </div>
 
-                <div v-else-if="modalView == 'success'" class="text-center">
+                <div v-else-if="modalView == 'success'" class="p-4 text-center">
                     <h3>Tack för din beställning!</h3>
                     <p>En bekräftelse kommer att skickas via SMS.</p>
                     <button @click.prevent="facebookLogout()" type="button" class="btn btn-basic rounded-pill mt-4 px-3">
                         Logga ut
                     </button>
                 </div>
-                
+
+                <div v-else-if="modalView == 'map'" class="text-center map">
+
+                </div>
 
                 <div class="footer p-3">
                     <button v-if="modalView == 'cart'" :disabled="!cart.length" type="button" class="btn btn-basic rounded-pill w-100" @click="confirmOrder">Skicka beställning</button>
             
-                    <button v-if="modalView == 'product'" type="button" class="btn btn-basic rounded-pill w-100" @click="addToCart(selectedItem)" >
+                    <button v-if="modalView == 'article'" type="button" class="btn btn-basic rounded-pill w-100" @click="addToCart(selectedItem)" >
                         <i class="bi bi-plus-lg me-2"></i>Lägg i varukorg
                     </button>
 
@@ -216,8 +228,7 @@
                 </div>
             </div>
         </div>
-   
-        
+
 
         <!-- <footer class="d-none footer border-top">
             <nav class="menu p-2">
@@ -230,9 +241,12 @@
             </nav>
         </footer> -->
 
-        <footer v-if="currentPage == 'market'" class="footer p-3">
-            <button type="button" class="btn btn-basic rounded-pill w-100" @click="openModal()">
+        <footer class="footer p-3">
+            <button v-if="currentPage == 'market'" type="button" class="btn btn-basic shadow rounded-pill w-100" @click="openModal('cart')">
                 <i class="bi bi-cart me-2"></i>Varukorg <span>({{ cart.length }})</span>
+            </button>
+            <button v-if="currentPage == 'select-market'" type="button" class="btn btn-basic shadow rounded-pill w-100" @click="openModal('map')">
+                <i class="bi bi-geo-alt me-2"></i>Sök på karta</span>
             </button>
         </footer>
 
@@ -428,7 +442,7 @@
                     this.bottomVisible = false
 
                     setTimeout(() => {
-                        this.currentPage = 'market'
+                        this.currentPage = 'select-market'
                     }, 500)
                 },
                 handleClickBottom() {
@@ -437,15 +451,15 @@
                     this.bottomVisible = false
 
                     setTimeout(() => {
-                        this.currentPage = 'market'
+                        this.currentPage = 'select-market'
                     }, 500)
                 },
-                openModal(item) {
-                    this.modalView = 'cart'
+                openModal(view, item) {
+                    this.modalView = view
 
                     if (item) {
                         this.selectedItem = item
-                        this.modalView = 'product'
+                        this.modalView = view
                     }
 
                     this.showSlideDiv = true

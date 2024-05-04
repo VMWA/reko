@@ -26,6 +26,20 @@
     }
 }
 
+.tips {
+    background-color: #fff0f0;
+}
+
+.map {
+    background-image: url('../map.png');
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+}
+
 body {
     color: #2B3926;
     background-color: #fefef1;
