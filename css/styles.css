@@ -40,6 +40,19 @@
     height: 100%;
 }
 
+.map .hide-button {
+    color: white;
+    background: black;
+    opacity: 0.25;
+    padding: 10px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
 body {
     color: #2B3926;
     background-color: #fefef1;

@@ -153,7 +153,8 @@
                     <h1 v-if="modalView == 'cart'" class="modal-title">Varukorg</h1>
                     <h1 v-else-if="modalView == 'product'" class="modal-title">Produktinformation</h1>
                     <h1 v-else-if="modalView == 'finish'" class="modal-title">Slutför</h1>
-                    <a type="button" class="ms-auto" @click="hideModal()">
+
+                    <a type="button" class="ms-auto hide-button" @click="hideModal()">
                         <i class="bi bi-chevron-down"></i>
                     </a>
                 </div>
@@ -283,10 +284,10 @@
                     ],
                     markets: [
                         {
-                            name: "Karlstad",
+                            name: "REKO-ring Karlstad",
                         },
                         {
-                            name: "Örebro",
+                            name: "REKO-ring Örebro",
                         },
                     ],
                     selectedCategories: [],
