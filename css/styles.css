@@ -85,6 +85,18 @@ a:hover {
     cursor: not-allowed;
 }
 
+.dark .btn-basic {
+    background-color: #fefef1;
+    color: #2B3926;
+    border-color: #fefef1;
+}
+
+.dark .btn-basic:disabled {
+    border-color: #fefef1;
+    background-color: transparent;
+    cursor: not-allowed;
+}
+
 ul {
     list-style-type: none;
     padding: 0;
@@ -99,6 +111,7 @@ ul {
 .list-group-item {
     border: none;
     border-radius: 0;
+    color: inherit;
     border-bottom: 1px solid #ededed;
     background-color: transparent;
     opacity: 0;
@@ -255,7 +268,7 @@ ul {
     background-color: #fff; /* Adjust background color as needed */
     overflow-y: auto; /* Allow scrolling if content exceeds the div's height */
     transform: translateY(100%);
-    transition: transform 0.4s ease-in-out;
+    transition: transform 0.3s ease-in-out;
 }
 
 .slide-div.show {
@@ -327,7 +340,7 @@ ul {
     position: sticky;
     top: 0;
     z-index: 2;
-    background-color: #fefef1;
+    background-color: inherit;
 }
 
 .splash {

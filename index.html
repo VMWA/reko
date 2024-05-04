@@ -41,7 +41,7 @@
         </transition>
 
         <!-- Select buy or sell -->
-        <div v-if="currentPage == 'select'" class="d-flex market-container flex-column" :class="{'dark': this.theme == 'dark'}">
+        <div v-if="currentPage == 'select'" class="d-flex market-container flex-column" :class="{'dark': this.mode == 'sell'}">
 
             <transition name="slide-up">
                 <div v-if="topVisible" @click.prevent="handleClickTop" class="split-screen top text-center align-items-center d-flex justify-content-center" style="height: 50vh;background-color: #fcfff0;">
@@ -56,7 +56,7 @@
             </transition>
         </div>
 
-        <div class="d-flex market-container flex-column vh-100 p-0" v-if="currentPage == 'market'" :class="{'dark': this.theme == 'dark'}">
+        <div class="d-flex market-container flex-column vh-100 p-0" v-if="currentPage == 'market'" :class="{'dark': this.mode == 'sell'}">
             <div v-if="selectedMarket">
 
                 <header class="border-bottom">
@@ -121,7 +121,7 @@
             </div>
         </div>
 
-        <div class="d-flex market-container flex-column vh-100 p-0" v-if="currentPage == 'select-market'" :class="{'dark': this.theme == 'dark'}">
+        <div class="d-flex market-container flex-column vh-100 p-0" v-if="currentPage == 'select-market'" :class="{'dark': this.mode == 'sell'}">
             <div class="p-3">
                 <h1>Välj marknad:</h1>
                 <ul class="list-group">
@@ -140,7 +140,7 @@
             </div>
         </div>
 
-        <div class="d-flex flex-column market-container p-5" v-if="currentPage == 'sell'" :class="{'dark': this.theme == 'dark'}">
+        <div class="d-flex flex-column market-container p-5" v-if="currentPage == 'sell'" :class="{'dark': this.mode == 'sell'}">
             <h1>Välj marknad:</h1>
         </div>
 
@@ -212,6 +212,12 @@
 
                 </div>
 
+                <div v-else-if="modalView == 'product-form'" class="text-center p-4">
+                    <div class="progress">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+
                 <div class="footer p-3">
                     <button v-if="modalView == 'cart'" :disabled="!cart.length" type="button" class="btn btn-basic rounded-pill w-100" @click="confirmOrder">Skicka beställning</button>
             
@@ -249,12 +255,22 @@
         </footer> -->
 
         <footer class="footer p-3">
-            <button v-if="currentPage == 'market'" type="button" class="btn btn-basic shadow rounded-pill w-100" @click="openModal('cart')">
-                <i class="bi bi-cart me-2"></i>Varukorg <span>({{ cart.length }})</span>
-            </button>
-            <button v-if="currentPage == 'select-market'" type="button" class="btn btn-basic shadow rounded-pill w-100" @click="openModal('map')">
-                <i class="bi bi-geo-alt me-2"></i>Sök på karta</span>
-            </button>
+            <div v-if="mode == 'buy'">
+                <button v-if="currentPage == 'market'" type="button" class="btn btn-basic shadow rounded-pill w-100" @click="openModal('cart')">
+                    <i class="bi bi-cart me-2"></i>Varukorg <span>({{ cart.length }})</span>
+                </button>
+                <button v-if="currentPage == 'select-market'" type="button" class="btn btn-basic shadow rounded-pill w-100" @click="openModal('map')">
+                    <i class="bi bi-geo-alt me-2"></i>Sök på karta</span>
+                </button>
+            </div>
+            <div v-if="mode == 'sell'">
+                <button v-if="currentPage == 'market'" type="button" class="btn btn-basic shadow rounded-pill w-100" @click="openModal('product-form')">
+                    <i class="bi bi-plus me-2"></i>Lägg upp produkt
+                </button>
+                <button v-if="currentPage == 'select-market'" type="button" class="btn btn-basic shadow rounded-pill w-100" @click="openModal('map')">
+                    <i class="bi bi-geo-alt me-2"></i>Sök på karta</span>
+                </button>
+            </div>
         </footer>
 
     </div>
@@ -270,7 +286,6 @@
                 return {
                     loading: false,
                     mode: null,
-                    theme: 'light',
                     currentPage: 'start',
                     showSlideDiv: false,
                     selectedMarket: null,
@@ -444,7 +459,7 @@
                     }
                 },
                 handleClickTop() {
-                    this.theme = 'light'
+                    this.mode = 'buy'
                     this.topVisible = false
                     this.bottomVisible = false
 
@@ -453,7 +468,7 @@
                     }, 500)
                 },
                 handleClickBottom() {
-                    this.theme = 'dark'
+                    this.mode = 'sell'
                     this.topVisible = false
                     this.bottomVisible = false
 
