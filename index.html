@@ -225,6 +225,12 @@
                     <button v-if="modalView == 'success'" type="button" class="btn btn-basic rounded-pill w-100" @click="hideModal">
                         Stäng
                     </button>
+
+                    <form v-if="modalView == 'map'">
+                        <div class="input-group">
+                            <input type="text" class="form-control rounded-pill px-3" placeholder="Sök marknad">
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
